@@ -322,6 +322,7 @@ def main():
             # TODO 改成lua名字
             write_to_lua_script(t, output_path)
             print(SUCCESS + '{} => {}'.format(xls_file, lua_file))
+    print(INFO + 'done.')
 
 
 if __name__ == '__main__':
