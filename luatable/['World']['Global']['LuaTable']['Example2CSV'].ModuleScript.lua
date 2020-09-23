@@ -2,7 +2,6 @@
 --- Don't change it manaully.--- @copyright Lilith Games, Project Da Vinci(Avatar Team)
 --- @see https://www.projectdavinci.com/
 --- source file: ./xls/ExampleTable2.xls
---- created at: Wed Sep 23 06:50:48 2020
 
 local Example2 = {
     [1] = {

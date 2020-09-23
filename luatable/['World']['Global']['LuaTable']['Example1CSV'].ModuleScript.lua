@@ -2,7 +2,6 @@
 --- Don't change it manaully.--- @copyright Lilith Games, Project Da Vinci(Avatar Team)
 --- @see https://www.projectdavinci.com/
 --- source file: ./xls/ExampleTable1.xls
---- created at: Wed Sep 23 06:50:48 2020
 
 local Example1 = {
     [1] = {
@@ -12,10 +11,10 @@ local Example1 = {
         use_food = 2.33,
         is_init = true,
         defense = 100,
-        args1 = {1, 2, 3},
-        args2 = {1.23, 2, 3.23},
-        args3 = {'sdf', '23e', 's'},
-        args4 = {true, false, true}
+        args1 = {1,2,3},
+        args2 = {1.23,2,3.23},
+        args3 = {'sdf','23e','s'},
+        args4 = {true,false,true}
     },
     [2] = {
         id = 2,
@@ -24,10 +23,10 @@ local Example1 = {
         use_food = 336.2,
         is_init = true,
         defense = 0,
-        args1 = {1, 2, 3},
-        args2 = {1, 2.3445, 3},
-        args3 = {'你好', '你在哪'},
-        args4 = {true, false}
+        args1 = {1,2,3},
+        args2 = {1,2.3445,3},
+        args3 = {'你好','你在哪'},
+        args4 = {true,false}
     },
     [3] = {
         id = 3,
@@ -36,10 +35,10 @@ local Example1 = {
         use_food = 222.33665,
         is_init = false,
         defense = 130,
-        args1 = {3, 2, 5},
-        args2 = {3, 2, 2.5},
-        args3 = {'我在这里啊', '你在那', '呢'},
-        args4 = {false, true}
+        args1 = {3,2,5},
+        args2 = {3,2,2.5},
+        args3 = {'我在这里啊','你在那','呢'},
+        args4 = {false,true}
     },
     [4] = {
         id = 4,
@@ -48,9 +47,9 @@ local Example1 = {
         use_food = 220.0,
         is_init = false,
         defense = 200,
-        args1 = {2, 3},
-        args2 = {200.3, 3, 234.23},
-        args3 = {'df', 'ssd', 'dd', 'dd'},
+        args1 = {2,3},
+        args2 = {200.3,3,234.23},
+        args3 = {'df','ssd','dd','dd'},
         args4 = {}
     },
     [5] = {
@@ -60,10 +59,10 @@ local Example1 = {
         use_food = 22.1,
         is_init = false,
         defense = 234,
-        args1 = {3, 6, 6, 7},
-        args2 = {3, 6.3, 6, 7},
-        args3 = {'ss', 'd', 'd', 'd'},
-        args4 = {true, true}
+        args1 = {3,6,6,7},
+        args2 = {3,6.3,6,7},
+        args3 = {'ss','d','d','d'},
+        args4 = {true,true}
     },
     [6] = {
         id = 6,
@@ -74,8 +73,8 @@ local Example1 = {
         defense = 333,
         args1 = {},
         args2 = {},
-        args3 = {'2e', 'w', 'e', 'we'},
-        args4 = {false, false, false, false}
+        args3 = {'2e','w','e','we'},
+        args4 = {false,false,false,false}
     }
 }
 
