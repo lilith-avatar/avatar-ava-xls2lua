@@ -1,0 +1,1 @@
+powershell -command "pyinstaller .\ava-xls2lua.py -w -F -i icon.ico; cp .\dist\ava-xls2lua.exe .\ava-xls2lua.exe"
