@@ -128,19 +128,11 @@ def make_table(filename):
 
 
 def format_str(v):
-    # print(''+v)
-    # s = (''+v).encode('utf-8')
-    # print(s)
-    # s = '' + v
-    # bytes(num)
     if type(v) == int or type(v) == float:
         v = str(v)
-    # s = ('%s' % (''+v)).encode('utf-8')
     s = v
-    s = s.replace('\"', '\\\"')
+    s = v.replace('\"', '\\\"')
     s = s.replace('\'', '\\\'')
-    # if s[-1] == ']':
-    # 	s = '%s '%(s)
     return s
 
 
@@ -278,7 +270,7 @@ def write_to_lua_script(excel, output_path):
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
                 else:
                     outfp.close()
-                    sys.exit(ERROR + 'there is some wrong in type.')
+                    raise RuntimeError('there is some wrong in type.')
 
                 if col_idx == len(row.items()) - 1:
                     outfp.write('\n')
@@ -299,28 +291,32 @@ def main():
     print(INFO + 'input path: \t{}'.format(input_path))
     print(INFO + 'output path: \t{}'.format(output_path))
     if not os.path.exists(input_path):
-        sys.exit(ERROR + 'input path does NOT exist.')
+        raise RuntimeError('input path does NOT exist.')
     if not os.path.exists(output_path):
         os.mkdir(output_path)
         print(INFO + 'make a new dir: \t{}'.format(output_path))
 
     xls_files = os.listdir(input_path)
     if len(xls_files) == 0:
-        sys.exit(ERROR + 'input dir is empty.')
+        raise RuntimeError('input dir is empty.')
 
     for xls_file in xls_files:
         lua_file = xls_file.replace('.xls', '.lua')
-        # print(xls_file, lua_file)
         t, ret, errstr = make_table(INPUT_FOLDER + '/' + xls_file)
         if ret != 0:
             print(FAILED + '{} => {}'.format(xls_file, lua_file))
-            print(ERROR + '' + errstr)
+            raise RuntimeError(errstr)
         else:
             # TODO 改成lua名字
             write_to_lua_script(t, output_path)
             print(SUCCESS + '{} => {}'.format(xls_file, lua_file))
-    print(INFO + 'done.')
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+        print(INFO + 'done.')
+        print(INFO + 'press Enter to exit...')
+    except RuntimeError as err:
+        print(ERROR + str(err))
+        print(INFO + 'check error please...')
