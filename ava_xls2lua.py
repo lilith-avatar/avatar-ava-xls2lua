@@ -25,8 +25,8 @@ __status__ = "Development"
 gui = None
 
 INPUT_FOLDER = './xls'
-OUTPUT_FOLDER = './luatable'
-OUTPUT_LUA_TEMPLATE = "['World']['Global']['LuaTable']['{sheet_name}CSV'].ModuleScript.lua"
+OUTPUT_FOLDER = './code'
+OUTPUT_LUA_TEMPLATE = "['World']['Global']['XLS']['{sheet_name}XLS'].ModuleScript.lua"
 
 INFO = '[\033[36minfo\033[0m] '
 ERROR = '[\033[31merror\033[0m] '
@@ -339,51 +339,51 @@ def write_to_lua_script(excel, output_path):
         for (row_idx, row) in sheet.items():
             outfp.write('    [' + str(row_idx) + '] = {\n')
             for (col_idx, field) in row.items():
-                if type_dict[col_idx] == INT:
+                if type_dict[col_idx].lower() == INT:
                     tmp_str = get_int(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == FLOAT:
+                elif type_dict[col_idx].lower() == FLOAT:
                     tmp_str = get_float(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == STRING:
+                elif type_dict[col_idx].lower() == STRING:
                     tmp_str = get_string(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = \'' + str(tmp_str) + '\'')
-                elif type_dict[col_idx] == BOOL:
+                elif type_dict[col_idx].lower() == BOOL:
                     tmp_str = get_bool(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == INT_ARR:
+                elif type_dict[col_idx].lower() == INT_ARR:
                     tmp_str = get_int_arr(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == FLOAT_ARR:
+                elif type_dict[col_idx].lower() == FLOAT_ARR:
                     tmp_str = get_float_arr(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == STRING_ARR:
+                elif type_dict[col_idx].lower() == STRING_ARR:
                     tmp_str = get_string_arr(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == BOOL_ARR:
+                elif type_dict[col_idx].lower() == BOOL_ARR:
                     tmp_str = get_bool_arr(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == VECTOR2:
+                elif type_dict[col_idx].lower() == VECTOR2:
                     tmp_str = get_vector2(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == VECTOR3:
+                elif type_dict[col_idx].lower() == VECTOR3:
                     tmp_str = get_vector3(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == EULER:
+                elif type_dict[col_idx].lower() == EULER:
                     tmp_str = get_euler(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
-                elif type_dict[col_idx] == COLOR:
+                elif type_dict[col_idx].lower() == COLOR:
                     tmp_str = get_color(row[col_idx])
                     outfp.write(
                         '        ' + str(title[col_idx]) + ' = ' + str(tmp_str))
