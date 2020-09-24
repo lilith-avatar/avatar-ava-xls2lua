@@ -26,7 +26,7 @@ gui = None
 
 INPUT_FOLDER = './xls'
 OUTPUT_FOLDER = './code'
-OUTPUT_LUA_TEMPLATE = "['World']['Global']['XLS']['{sheet_name}XLS'].ModuleScript.lua"
+OUTPUT_LUA_TEMPLATE = "['World']['Global']['Xls']['{sheet_name}XlsModule'].ModuleScript.lua"
 
 INFO = '[\033[36minfo\033[0m] '
 ERROR = '[\033[31merror\033[0m] '
@@ -333,7 +333,7 @@ def write_to_lua_script(excel, output_path):
         file_name = OUTPUT_LUA_TEMPLATE.format(sheet_name=sheet_name)
         outfp = codecs.open(output_path + '/' + file_name, 'w', "utf-8")
         outfp.write(SCRIPT_HEAD % (excel['filename']))
-        outfp.write('local ' + sheet_name + ' = {\n')
+        outfp.write('local ' + sheet_name + 'Xls = {\n')
         title = excel['meta'][sheet_name]['title']
         type_dict = excel['meta'][sheet_name]['type']
         for (row_idx, row) in sheet.items():
