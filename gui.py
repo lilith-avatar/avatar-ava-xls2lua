@@ -29,6 +29,7 @@ class MainFrame(wx.Frame):
         if x2l is not None:
             self.button.Disable()
             self.logs.Clear()
+            self.logs.Refresh()
             x2l.run()
             self.button.Enable()
         else:
