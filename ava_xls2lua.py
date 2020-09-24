@@ -9,6 +9,8 @@ import os
 import sys
 import codecs
 
+gui = None
+
 INPUT_FOLDER = './xls'
 OUTPUT_FOLDER = './luatable'
 OUTPUT_LUA_TEMPLATE = "['World']['Global']['LuaTable']['{sheet_name}CSV'].ModuleScript.lua"
@@ -45,7 +47,7 @@ def make_table(filename):
         if not sheet_name.startswith('output_'):
             continue
         sheet_name = sheet_name[7:]
-        # print(sheet_name +' sheet')
+        # log(sheet_name +' sheet')
         excel['data'][sheet_name] = {}
         excel['meta'][sheet_name] = {}
 
@@ -288,35 +290,65 @@ def write_to_lua_script(excel, output_path):
 def main():
     input_path = INPUT_FOLDER
     output_path = OUTPUT_FOLDER
-    print(INFO + 'input path: \t{}'.format(input_path))
-    print(INFO + 'output path: \t{}'.format(output_path))
+    log(INFO + 'input path: \t{}'.format(input_path))
+    log(INFO + 'output path: \t{}'.format(output_path))
     if not os.path.exists(input_path):
         raise RuntimeError('input path does NOT exist.')
     if not os.path.exists(output_path):
         os.mkdir(output_path)
-        print(INFO + 'make a new dir: \t{}'.format(output_path))
+        log(INFO + 'make a new dir: \t{}'.format(output_path))
 
     xls_files = os.listdir(input_path)
     if len(xls_files) == 0:
         raise RuntimeError('input dir is empty.')
 
-    for xls_file in xls_files:
+    log(INFO + 'total files: \t{}'.format(len(xls_files)))
+    for i in range(len(xls_files)):
+        xls_file = xls_files[i]
         lua_file = xls_file.replace('.xls', '.lua')
         t, ret, errstr = make_table(INPUT_FOLDER + '/' + xls_file)
         if ret != 0:
-            print(FAILED + '{} => {}'.format(xls_file, lua_file))
+            log(FAILED + '{} => {}'.format(xls_file, lua_file))
             raise RuntimeError(errstr)
         else:
             # TODO 改成lua名字
             write_to_lua_script(t, output_path)
-            print(SUCCESS + '{} => {}'.format(xls_file, lua_file))
+            log(SUCCESS + '[{}] {} => {}'.format(i + 1, xls_file, lua_file))
+
+
+def run():
+    try:
+        main()
+        log(INFO + 'done.')
+        if gui is None:
+            log(INFO + 'press Enter to exit...')
+            input()
+    except RuntimeError as err:
+        log(ERROR + str(err))
+        if gui is None:
+            log(INFO + 'check error please...')
+            input()
+
+
+def set_gui(frame):
+    global gui
+    if frame is not None:
+        gui = frame
+        global INFO, ERROR, SUCCESS, FAILED
+        INFO = '[info] '
+        ERROR = '[error] '
+        SUCCESS = '[sucess] '
+        FAILED = '[failed] '
+    else:
+        log(ERROR + 'frame is None.')
+
+
+def log(s):
+    if gui is not None:
+        gui.write(s)
+    else:
+        print(s)
 
 
 if __name__ == '__main__':
-    try:
-        main()
-        print(INFO + 'done.')
-        print(INFO + 'press Enter to exit...')
-    except RuntimeError as err:
-        print(ERROR + str(err))
-        print(INFO + 'check error please...')
+    run()

@@ -1,1 +1,1 @@
-powershell -command "pyinstaller .\ava-xls2lua.py -w -F -i icon.ico; cp .\dist\ava-xls2lua.exe .\ava-xls2lua.exe"
+powershell -command "pyinstaller .\gui.py -F -w -n ava-x2l -i icon.ico --clean --hidden-import wx --hidden-import wx._xml;cp .\dist\ava-xls2lua.exe .\ava-xls2lua.exe"
