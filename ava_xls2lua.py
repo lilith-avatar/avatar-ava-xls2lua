@@ -8,6 +8,7 @@ import time
 import os
 import sys
 import codecs
+import datetime
 
 gui = None
 
@@ -288,6 +289,9 @@ def write_to_lua_script(excel, output_path):
 
 
 def main():
+    log(INFO +
+        'time: \t\t{0:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()))
+
     input_path = INPUT_FOLDER
     output_path = OUTPUT_FOLDER
     log(INFO + 'input path: \t{}'.format(input_path))
