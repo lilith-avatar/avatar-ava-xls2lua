@@ -3,17 +3,17 @@
 # description: xls2lua GUI
 # git repo: https://github.com/lilith-avatar/avatar-ava-xls2lua
 
-__author__ = "Yuancheng Zhang"
+import ava_xls2lua as x2l
+import wx
+import wx.richtext as rt
+
+__authors__ = ["Yuancheng Zhang"]
 __copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
 __credits__ = ["Yuancheng Zhang"]
 __license__ = "MIT"
 __version__ = "1.1"
 __maintainer__ = "Yuancheng Zhang"
-__status__ = "Develop"
-
-import wx
-import wx.richtext as rt
-import ava_xls2lua as x2l
+__status__ = "Development"
 
 
 class MainFrame(wx.Frame):

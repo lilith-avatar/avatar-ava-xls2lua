@@ -5,21 +5,22 @@
 # forked from: https://github.com/luzexi/xls2lua
 # Ava framework: https://github.com/lilith-avatar/avatar-ava
 
-__author__ = "Yuancheng Zhang"
+import os
+import os.path
+import time
+import sys
+import datetime
+import codecs
+import xlrd
+
+__authors__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
 __copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
 __credits__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
 __license__ = "MIT"
 __version__ = "1.1"
 __maintainer__ = "Yuancheng Zhang"
-__status__ = "Develop"
+__status__ = "Development"
 
-import xlrd
-import os.path
-import time
-import os
-import sys
-import codecs
-import datetime
 
 gui = None
 
