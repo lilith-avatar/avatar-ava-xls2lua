@@ -62,7 +62,7 @@ def make_table(filename):
         for col_idx in range(sheet.ncols):
             value = sheet.cell_value(0, col_idx)
             vtype = sheet.cell_type(0, col_idx)
-            if vtype != 1:
+            if vtype != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'title columns[' + str(col_idx) + '] must be string'
             title[col_idx] = str(value).replace(' ', '_')
 
@@ -103,24 +103,24 @@ def make_table(filename):
                 vtype = sheet.cell_type(row_idx, col_idx)
                 # 本行有数据
                 v = None
-                if type_dict[col_idx].lower() == 'i' and vtype == 2:
+                if type_dict[col_idx].lower() == 'i' and vtype == xlrd.XL_CELL_NUMBER:
                     v = int(value)
-                elif type_dict[col_idx].lower() == 'f' and vtype == 2:
+                elif type_dict[col_idx].lower() == 'f' and vtype == xlrd.XL_CELL_NUMBER:
                     v = float(value)
                 elif type_dict[col_idx].lower() == 's':
                     v = format_str(value)
-                elif type_dict[col_idx].lower() == 'b' and vtype == 4:
+                elif type_dict[col_idx].lower() == 'b' and vtype == xlrd.XL_CELL_BOOLEAN:
                     if value == 1:
                         v = 'true'
                     else:
                         v = 'false'
-                elif type_dict[col_idx].lower() == 'ai' and vtype == 1:
+                elif type_dict[col_idx].lower() == 'ai' and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
-                elif type_dict[col_idx].lower() == 'af' and vtype == 1:
+                elif type_dict[col_idx].lower() == 'af' and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
                 elif type_dict[col_idx].lower() == 'as':
                     v = format_str(value)
-                elif type_dict[col_idx].lower() == 'ab' and vtype == 1:
+                elif type_dict[col_idx].lower() == 'ab' and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
 
                 row[col_idx] = v
