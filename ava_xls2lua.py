@@ -331,9 +331,10 @@ def get_color(v):
 def write_to_lua_script(excel, output_path):
     for (sheet_name, sheet) in excel['data'].items():
         file_name = OUTPUT_LUA_TEMPLATE.format(sheet_name=sheet_name)
+        suffix = 'Xls'
         outfp = codecs.open(output_path + '/' + file_name, 'w', "utf-8")
         outfp.write(SCRIPT_HEAD % (excel['filename']))
-        outfp.write('local ' + sheet_name + 'Xls = {\n')
+        outfp.write('local ' + sheet_name + suffix + ' = {\n')
         title = excel['meta'][sheet_name]['title']
         type_dict = excel['meta'][sheet_name]['type']
         for (row_idx, row) in sheet.items():
@@ -401,7 +402,7 @@ def write_to_lua_script(excel, output_path):
                 outfp.write('    }\n')
             else:
                 outfp.write('    },\n')
-        outfp.write('}\n\nreturn ' + sheet_name + '\n')
+        outfp.write('}\n\nreturn ' + sheet_name + suffix + '\n')
         outfp.close()
 
 
