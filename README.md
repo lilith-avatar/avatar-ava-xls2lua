@@ -301,8 +301,8 @@ return Example1Xls
 
 ### How to use lua with data. (如何使用生成的lua数据)
 ```lua
-local building = require "building"
+local Example1 = require "Example1Xls"
 
-print(building[1].name)
+print(Example1[1].name)
 ```
-The console will print "house"
+The console will print `house`
