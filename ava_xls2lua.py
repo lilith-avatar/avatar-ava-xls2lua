@@ -435,6 +435,8 @@ def load_config():
 
 
 def main():
+    global lua_cnt
+    lua_cnt = 0
     input_path = INPUT_FOLDER
     output_path = OUTPUT_FOLDER
     log(INFO + 'input path: \t{}'.format(input_path))
