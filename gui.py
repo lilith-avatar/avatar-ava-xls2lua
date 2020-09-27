@@ -18,7 +18,7 @@ __status__ = "Development"
 
 class MainFrame(wx.Frame):
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, -1, title)
+        wx.Frame.__init__(self, parent, -1, title, size=wx.Size(640, 320))
 
         self.SetIcon(wx.Icon("icon.ico"))
 
