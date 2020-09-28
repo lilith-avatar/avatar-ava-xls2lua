@@ -79,7 +79,6 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_CHECKBOX, self.on_config_checked, self.cb_config)
         self.sizer_btm.Add(self.cb_config,
                            flag=wx.RIGHT, border=4)
-        self.cb_config.Hide()
 
         # Save
         self.btn_save = wx.Button(self.panel, label='Save')
@@ -130,6 +129,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Show(self.sizer_cfg_3, recursive=True)
         self.btn_save.Show()
         self.panel.Layout()
+        self.cb_config.SetValue(True)
 
     def hide_config(self):
         self.sizer_v.Hide(self.sizer_cfg_1, recursive=True)
@@ -137,6 +137,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.btn_save.Hide()
         self.panel.Layout()
+        self.cb_config.SetValue(False)
 
     def write(self, s):
         self.logs.WriteText(s + '\n')
