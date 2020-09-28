@@ -48,6 +48,7 @@ CONFIG_FILE = '.ava-x2l-config.json'
 
 gui = None
 lua_cnt = 0
+max_xls_name_len = 0
 
 
 def make_table(filename):
@@ -195,7 +196,7 @@ def get_bool(v):
 def get_int_arr(v):
     if v is None:
         return '{}'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
     for val in tmp_vec_str:
@@ -211,7 +212,7 @@ def get_int_arr(v):
 def get_float_arr(v):
     if v is None:
         return '{}'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
     for val in tmp_vec_str:
@@ -227,7 +228,7 @@ def get_float_arr(v):
 def get_string_arr(v):
     if v is None:
         return '{}'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
     for val in tmp_vec_str:
@@ -243,7 +244,7 @@ def get_string_arr(v):
 def get_bool_arr(v):
     if v is None:
         return '{}'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
     for val in tmp_vec_str:
@@ -259,7 +260,7 @@ def get_bool_arr(v):
 def get_vector2(v):
     if v is None:
         return 'Vector2.Zero'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 2:
         # todo: error check
         return 'Vector2.Zero'
@@ -278,7 +279,7 @@ def get_vector2(v):
 def get_vector3(v):
     if v is None:
         return 'Vector3.Zero'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 3:
         # todo: error check
         return 'Vector3.Zero'
@@ -297,7 +298,7 @@ def get_vector3(v):
 def get_euler(v):
     if v is None:
         return 'EulerDegree(0, 0, 0)'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 3:
         # todo: error check
         return 'EulerDegree(0, 0, 0)'
@@ -316,7 +317,7 @@ def get_euler(v):
 def get_color(v):
     if v is None:
         return 'Color(0, 0, 0, 0)'
-    tmp_vec_str = v.split(';')
+    tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 4:
         # todo: error check
         return 'Color(0, 0, 0, 0)'
@@ -410,7 +411,8 @@ def write_to_lua_script(excel, output_path, xls_file):
         outfp.close()
         global lua_cnt
         lua_cnt += 1
-        log(SUCCESS + '[{}] {} => {}'.format(lua_cnt, xls_file, file_name))
+        log(SUCCESS + '[{{0:02d}}] {{1:{0}}} => {{2}}'.format(max_xls_name_len).format(lua_cnt,
+                                                                                       xls_file, file_name))
 
 
 def load_config():
@@ -450,6 +452,11 @@ def main():
     xls_files = os.listdir(input_path)
     if len(xls_files) == 0:
         raise RuntimeError('input dir is empty.')
+
+    # find max string len
+    global max_xls_name_len
+    max_xls_name_len = len(max(xls_files, key=len))
+
     # filer files by .xls
     xls_files = [x for x in xls_files if '.xls' in x[-4:]]
     log(INFO + 'total XLS: \t{}'.format(len(xls_files)))
