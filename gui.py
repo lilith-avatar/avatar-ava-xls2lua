@@ -18,15 +18,19 @@ __status__ = "Development"
 
 class MainFrame(wx.Frame):
     def __init__(self, parent, title):
-        wx.Frame.__init__(self, parent, -1, title, size=wx.Size(640, 320))
+        wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
         self.SetIcon(wx.Icon("icon.ico"))
         self.panel = wx.Panel(self)
 
         self.sizer_v = wx.BoxSizer(wx.VERTICAL)
 
+        font1 = wx.Font(8, wx.MODERN, wx.NORMAL,
+                        wx.NORMAL, False, u'Consolas')
+
         # 采用多行显示
         self.logs = rt.RichTextCtrl(
             self.panel, style=wx.TE_MULTILINE | wx.TE_READONLY)
+        self.logs.SetFont(font1)
 
         # 1为响应容器改变大小，expand占据窗口的整个宽度
         self.sizer_v.Add(self.logs, 1, wx.ALIGN_TOP | wx.EXPAND)
@@ -75,6 +79,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_CHECKBOX, self.on_config_checked, self.cb_config)
         self.sizer_btm.Add(self.cb_config,
                            flag=wx.RIGHT, border=4)
+        self.cb_config.Hide()
 
         # Save
         self.btn_save = wx.Button(self.panel, label='Save')
