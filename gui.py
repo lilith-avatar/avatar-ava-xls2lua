@@ -80,39 +80,51 @@ class MainFrame(wx.Frame):
         self.sizer_btm.Add(self.cb_config,
                            flag=wx.RIGHT, border=4)
 
-        # Save
-        self.btn_save = wx.Button(self.panel, label='Save')
-        self.Bind(wx.EVT_BUTTON, self.on_save_click, self.btn_save)
-        self.sizer_btm.Add(self.btn_save,
-                           flag=wx.RIGHT, border=4)
-
         self.sizer_v.Add(self.sizer_btm,  flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
         self.sizer_v.Add((-1, 4))
+        if not x2l:
+            self.cb_config.Hide()
 
         # Init panel
         self.panel.Layout()
-        self.toggle_config()
+        self.sizer_v.Hide(self.sizer_cfg_1, recursive=True)
+        self.sizer_v.Hide(self.sizer_cfg_2, recursive=True)
+        self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
 
     # 响应button事件
     def on_convert_click(self, event):
-        self.hide_config()
-        if x2l is not None:
-            self.btn_convert.Disable()
-            self.logs.Clear()
-            self.logs.Refresh()
-            x2l.run()
-            self.btn_convert.Enable()
-        else:
-            self.logs.WriteText('x2l is not found.')
+        if self.cb_config.IsChecked():
+            self.hide_config()
 
-    def on_save_click(self, event):
-        self.save_config()
+        self.btn_convert.Disable()
+        self.clear_log()
+        x2l.run()
+        self.btn_convert.Enable()
+
+    def clear_log(self):
+        self.logs.Clear()
+        self.logs.Refresh()
 
     def save_config(self):
-        # todo
-        print('save config')
-        pass
+        # print('save_config')
+        x2l.INPUT_FOLDER = self.tc1.GetValue()
+        x2l.OUTPUT_FOLDER = self.tc2.GetValue()
+        x2l.OUTPUT_LUA_TEMPLATE = self.tc3.GetValue()
+        x2l.save_config()
+
+    def load_config(self):
+        # print('load_config')
+        x2l.load_config()
+        self.tc1.Clear()
+        self.tc2.Clear()
+        self.tc3.Clear()
+        self.tc1.Refresh()
+        self.tc2.Refresh()
+        self.tc3.Refresh()
+        self.tc1.write(x2l.INPUT_FOLDER)
+        self.tc2.write(x2l.OUTPUT_FOLDER)
+        self.tc3.write(x2l.OUTPUT_LUA_TEMPLATE)
 
     def on_config_checked(self, event):
         self.toggle_config()
@@ -124,18 +136,18 @@ class MainFrame(wx.Frame):
             self.hide_config()
 
     def show_config(self):
+        self.load_config()
         self.sizer_v.Show(self.sizer_cfg_1, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_2, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_3, recursive=True)
-        self.btn_save.Show()
         self.panel.Layout()
         self.cb_config.SetValue(True)
 
     def hide_config(self):
+        self.save_config()
         self.sizer_v.Hide(self.sizer_cfg_1, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_2, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
-        self.btn_save.Hide()
         self.panel.Layout()
         self.cb_config.SetValue(False)
 
@@ -148,7 +160,7 @@ class App(wx.App):
         self.main_frame = MainFrame(
             None, 'Project DaVinci - XLS to LUA Convertor')
         self.main_frame.Show()
-        if x2l is not None:
+        if x2l:
             x2l.set_gui(self.main_frame)
         return True
 

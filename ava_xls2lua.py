@@ -411,29 +411,51 @@ def write_to_lua_script(excel, output_path, xls_file):
         outfp.close()
         global lua_cnt
         lua_cnt += 1
-        log(SUCCESS + '[{{0:02d}}] {{1:{0}}} => {{2}}'.format(max_xls_name_len).format(lua_cnt,
-                                                                                       xls_file, file_name))
+        log(SUCCESS + '[{{0:02d}}] {{1:{0}}} => {{2}}'
+            .format(max_xls_name_len).format(lua_cnt, xls_file, file_name))
 
 
-def load_config():
-    # todo: load config files
-    global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
+def check_config():
     if not os.path.isfile(CONFIG_FILE):
-        log(INFO + 'generate config:\t{}'.format(CONFIG_FILE))
-        default_config = {'input_folder': INPUT_FOLDER,
-                          'output_folder': OUTPUT_FOLDER,
-                          'output_lua_template': OUTPUT_LUA_TEMPLATE
-                          }
+        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
+        default_config = {
+            'input_folder': INPUT_FOLDER,
+            'output_folder': OUTPUT_FOLDER,
+            'output_lua_template': OUTPUT_LUA_TEMPLATE
+        }
         with open(CONFIG_FILE, 'w') as json_file:
             json_file.write(json.dumps(default_config, indent=True))
             json_file.close()
-            subprocess.check_call(['attrib', '+H', CONFIG_FILE])
+            proc1 = subprocess.check_call(['attrib', '+H', CONFIG_FILE])
+            log(INFO + 'generate config at {}'.format(CONFIG_FILE))
+
+
+def load_config():
+    check_config()
+    log(INFO + 'load config from {}'.format(CONFIG_FILE))
 
     with open(CONFIG_FILE) as json_file:
         config = json.load(json_file)
         INPUT_FOLDER = config['input_folder']
         OUTPUT_FOLDER = config['output_folder']
         OUTPUT_LUA_TEMPLATE = config['output_lua_template']
+        json_file.close()
+
+
+def save_config():
+    if not os.path.isfile(CONFIG_FILE):
+        return
+
+    config = {
+        'input_folder': INPUT_FOLDER,
+        'output_folder': OUTPUT_FOLDER,
+        'output_lua_template': OUTPUT_LUA_TEMPLATE
+    }
+    with open(CONFIG_FILE, 'r+') as json_file:
+        json_file.truncate(0)  # need '0' when using r+
+        json_file.write(json.dumps(config, indent=True))
+        json_file.close()
+        log(INFO + 'save config at {}'.format(CONFIG_FILE))
 
 
 def main():
