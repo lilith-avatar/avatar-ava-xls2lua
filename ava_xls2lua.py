@@ -481,7 +481,7 @@ def main():
 
     # filer files by .xls
     xls_files = [x for x in xls_files if '.xls' in x[-4:]]
-    log(INFO + 'total XLS: \t{}'.format(len(xls_files)))
+    log(INFO + 'total XLS: \t\t{}'.format(len(xls_files)))
 
     for i in range(len(xls_files)):
         xls_file = xls_files[i]
@@ -501,12 +501,12 @@ def run():
         load_config()
         main()
         global lua_cnt
-        log(INFO + 'total Lua: \t{}'.format(lua_cnt))
+        log(INFO + 'total Lua: \t\t{}'.format(lua_cnt))
         log(INFO + 'done.')
         if gui is None:
             log(INFO + 'press Enter to exit...')
             input()
-    except RuntimeError as err:
+    except (RuntimeError, ValueError, SyntaxError, AssertionError) as err:
         log(ERROR + str(err))
         if gui is None:
             log(INFO + 'check error please...')
