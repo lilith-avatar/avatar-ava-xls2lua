@@ -3,9 +3,9 @@
 # description: xls2lua GUI
 # git repo: https://github.com/lilith-avatar/avatar-ava-xls2lua
 
-import ava_xls2lua as x2l
 import wx
 import wx.richtext as rt
+import ava_xls2lua as x2l
 
 __authors__ = ["Yuancheng Zhang"]
 __copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
@@ -19,7 +19,7 @@ __status__ = "Development"
 class MainFrame(wx.Frame):
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
-        self.SetIcon(wx.Icon("icon.ico"))
+        self.SetIcon(wx.Icon('icon.ico'))
         self.panel = wx.Panel(self)
 
         self.sizer_v = wx.BoxSizer(wx.VERTICAL)
