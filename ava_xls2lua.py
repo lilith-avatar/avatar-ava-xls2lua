@@ -73,28 +73,28 @@ def make_table(filename):
         excel['meta'][sheet_name] = {}
 
         # 必须大于2行
-        if sheet.nrows <= 2:
+        if sheet.nrows <= 3:
             return {}, -1, 'sheet[' + sheet_name + ']' + ' rows must > 2'
 
         # 解析标题
         title = {}
         col_idx = 0
         for col_idx in range(sheet.ncols):
-            value = sheet.cell_value(0, col_idx)
-            vtype = sheet.cell_type(0, col_idx)
+            value = sheet.cell_value(1, col_idx)
+            vtype = sheet.cell_type(1, col_idx)
             if vtype != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'title columns[' + str(col_idx) + '] must be string'
             title[col_idx] = str(value).replace(' ', '_')
 
         excel['meta'][sheet_name]['title'] = title
 
-        row_idx = 1
+        row_idx = 2
         # 类型解析
         type_dict = {}
         col_idx = 0
         for col_idx in range(sheet.ncols):
-            value = sheet.cell_value(1, col_idx)
-            vtype = sheet.cell_type(1, col_idx)
+            value = sheet.cell_value(2, col_idx)
+            vtype = sheet.cell_type(2, col_idx)
             type_dict[col_idx] = str(value)
             if (type_dict[col_idx].lower() != INT
                     and type_dict[col_idx].lower() != FLOAT
@@ -116,8 +116,8 @@ def make_table(filename):
         excel['meta'][sheet_name]['type'] = type_dict
 
         row_idx = 2
-        # 数据从第3行开始
-        for row_idx in range(2, sheet.nrows):
+        # 数据从第4行开始
+        for row_idx in range(3, sheet.nrows):
             row = {}
 
             col_idx = 0
