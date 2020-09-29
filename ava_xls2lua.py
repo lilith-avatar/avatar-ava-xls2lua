@@ -339,11 +339,11 @@ def write_to_lua_script(excel, output_path, xls_file):
         suffix = 'Xls'
         outfp = codecs.open(output_path + '/' + file_name, 'w', "utf-8")
         outfp.write(SCRIPT_HEAD % (excel['filename']))
-        outfp.write('local ' + sheet_name + suffix + ' = {\n')
+        outfp.write('local ' + sheet_name + suffix + ' = {\r\n')
         title = excel['meta'][sheet_name]['title']
         type_dict = excel['meta'][sheet_name]['type']
         for (row_idx, row) in sheet.items():
-            outfp.write('    [' + str(row_idx) + '] = {\n')
+            outfp.write('    [' + str(row_idx) + '] = {\r\n')
             for (col_idx, field) in row.items():
                 if type_dict[col_idx].lower() == INT:
                     tmp_str = get_int(row[col_idx])
@@ -399,15 +399,15 @@ def write_to_lua_script(excel, output_path, xls_file):
                         'type "{}" is wrong.'.format(type_dict[col_idx]))
 
                 if col_idx == len(row.items()) - 1:
-                    outfp.write('\n')
+                    outfp.write('\r\n')
                 else:
-                    outfp.write(',\n')
+                    outfp.write(',\r\n')
 
             if row_idx == len(sheet.items()):
-                outfp.write('    }\n')
+                outfp.write('    }\r\n')
             else:
-                outfp.write('    },\n')
-        outfp.write('}\n\nreturn ' + sheet_name + suffix + '\n')
+                outfp.write('    },\r\n')
+        outfp.write('}\r\n\r\nreturn ' + sheet_name + suffix + '\r\n')
         outfp.close()
         global lua_cnt
         lua_cnt += 1
