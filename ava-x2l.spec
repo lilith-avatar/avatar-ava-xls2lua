@@ -15,7 +15,6 @@ a = Analysis(['gui.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-a.datas += [('icon.icon','F:\\Projs\\avatar-ava-xls2lua\\icon.ico', 'Data')]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 exe = EXE(pyz,
