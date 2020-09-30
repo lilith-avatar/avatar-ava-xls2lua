@@ -54,8 +54,8 @@ max_xls_name_len = 0
 def make_table(filename):
     if not os.path.isfile(filename):
         raise NameError('%s is	not	a valid	filename' % filename)
-    book_xlrd = xlrd.open_workbook(filename, formatting_info=True)
-    # book_xlrd = xlrd.open_workbook(filename)
+    # book_xlrd = xlrd.open_workbook(filename, formatting_info=True)
+    book_xlrd = xlrd.open_workbook(filename)
 
     excel = {}
     excel = {}
@@ -480,7 +480,8 @@ def main():
     max_xls_name_len = len(max(xls_files, key=len))
 
     # filer files by .xls
-    xls_files = [x for x in xls_files if '.xls' in x[-4:]]
+    xls_files = [x for x in xls_files if x[-4:]
+                 in ['.xls'] or x[-5:] in ['.xlsm', '.xlsx']]
     log(INFO + 'total XLS: \t\t{}'.format(len(xls_files)))
 
     for i in range(len(xls_files)):
