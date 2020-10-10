@@ -11,7 +11,7 @@ __authors__ = ["Yuancheng Zhang"]
 __copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
 __credits__ = ["Yuancheng Zhang"]
 __license__ = "MIT"
-__version__ = "1.1"
+__version__ = "1.1.1"
 __maintainer__ = "Yuancheng Zhang"
 __status__ = "Development"
 
@@ -67,22 +67,36 @@ class MainFrame(wx.Frame):
 
         # Bottom sizer
         self.sizer_btm = wx.BoxSizer(wx.HORIZONTAL)
+        self.sizer_btm_l = wx.BoxSizer(wx.VERTICAL)
+        self.sizer_btm_r = wx.BoxSizer(wx.VERTICAL)
 
         # Convert
         self.btn_convert = wx.Button(self.panel, label='Convert')
         self.Bind(wx.EVT_BUTTON, self.on_convert_click, self.btn_convert)
-        self.sizer_btm.Add(self.btn_convert)
-        self.sizer_btm.Add((30, -1))
+        self.sizer_btm_l.Add((-1, 4))
+        self.sizer_btm_l.Add(self.btn_convert, flag=wx.LEFT, border=4)
 
         # Config
         self.cb_config = wx.CheckBox(self.panel, label='Config')
         self.Bind(wx.EVT_CHECKBOX, self.on_config_checked, self.cb_config)
-        self.sizer_btm.Add(self.cb_config,
-                           flag=wx.RIGHT, border=4)
+        self.sizer_btm_r.Add(self.cb_config,
+                             flag=wx.RIGHT | wx.ALIGN_RIGHT, border=4)
 
-        self.sizer_v.Add(self.sizer_btm,  flag=wx.EXPAND |
-                         wx.LEFT | wx.RIGHT | wx.TOP, border=4)
+        # version
+        self.st_version = wx.StaticText(
+            self.panel, label='v' + __version__, size=(40, -1))
+        self.sizer_btm_r.Add(self.st_version,
+                             flag=wx.RIGHT | wx.ALIGN_RIGHT, border=4)
+
         self.sizer_v.Add((-1, 4))
+        self.sizer_v.Add(self.sizer_btm,  proportion=0,
+                         flag=wx.EXPAND, border=4)
+        self.sizer_btm.Add(self.sizer_btm_l, proportion=1,
+                           flag=wx.LEFT | wx.EXPAND, border=4)
+        self.sizer_btm.Add(self.sizer_btm_r, proportion=1,
+                           flag=wx.RIGHT | wx.EXPAND, border=4)
+        self.sizer_v.Add((-1, 4))
+
         if not x2l:
             self.cb_config.Hide()
 
