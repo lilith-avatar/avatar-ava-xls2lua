@@ -480,9 +480,11 @@ def main():
     max_xls_name_len = len(max(xls_files, key=len))
 
     # filer files by .xls
-    xls_files = [x for x in xls_files if x[-4:]
-                 in ['.xls'] or x[-5:] in ['.xlsm', '.xlsx']]
+    xls_files = [x for x in xls_files
+                 if (x[-4:] in ['.xls'] or x[-5:] in ['.xlsm', '.xlsx'])
+                 and x[0:2] not in ['~$']]
     log(INFO + 'total XLS: \t\t{}'.format(len(xls_files)))
+    # print(xls_files)
 
     for i in range(len(xls_files)):
         xls_file = xls_files[i]
