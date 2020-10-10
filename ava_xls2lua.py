@@ -48,6 +48,8 @@ COMMENT = 'comment'
 
 CONFIG_FILE = '.ava-x2l-config.json'
 
+KEY_1, KEY_2, KEY_3 = 'key1', 'key2', 'key3'
+
 gui = None
 lua_cnt = 0
 max_xls_name_len = 0
@@ -74,29 +76,28 @@ def make_table(filename):
         excel['data'][sheet_name] = {}
         excel['meta'][sheet_name] = {}
 
-        # 必须大于2行
-        if sheet.nrows <= 3:
-            return {}, -1, 'sheet[' + sheet_name + ']' + ' rows must > 2'
+        # 必须大于4行
+        if sheet.nrows < 4:
+            return {}, -1, 'sheet[' + sheet_name + ']' + ' rows must > 4'
 
         # 解析标题
         title = {}
-        col_idx = 0
+        row_idx, col_idx = 1, 0
         for col_idx in range(sheet.ncols):
-            value = sheet.cell_value(1, col_idx)
-            vtype = sheet.cell_type(1, col_idx)
+            value = sheet.cell_value(row_idx, col_idx)
+            vtype = sheet.cell_type(row_idx, col_idx)
             if vtype != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'title columns[' + str(col_idx) + '] must be string'
             title[col_idx] = str(value).replace(' ', '_')
 
         excel['meta'][sheet_name]['title'] = title
 
-        row_idx = 2
         # 类型解析
         type_dict = {}
-        col_idx = 0
+        row_idx, col_idx = 2, 0
         for col_idx in range(sheet.ncols):
-            value = sheet.cell_value(2, col_idx)
-            vtype = sheet.cell_type(2, col_idx)
+            value = sheet.cell_value(row_idx, col_idx)
+            vtype = sheet.cell_type(row_idx, col_idx)
             type_dict[col_idx] = str(value)
             if (type_dict[col_idx].lower() != INT
                     and type_dict[col_idx].lower() != FLOAT
@@ -115,13 +116,19 @@ def make_table(filename):
                 return {}, -1, 'sheet[{}] row[{}] column[{}] type wrong'.format(sheet_name, row_idx, col_idx)
 
         if type_dict[0].lower() != INT:
-            return {}, -1, 'sheet[' + sheet_name + ']' + ' first column type must be [i]'
+            return {}, -1, 'sheet[' + sheet_name + ']' + ' first column type must be [Int]'
 
         excel['meta'][sheet_name]['type'] = type_dict
 
-        row_idx = 2
-        # 数据从第4行开始
-        for row_idx in range(3, sheet.nrows):
+        # 读取主键key1，key2，key3，主键类型必须是Int或者String
+        row_idx, col_idx = 3, 0
+        # TODO: 读取主键
+        for col_idx in range(sheet.ncols):
+            pass
+
+        # 读取数据，从第5行开始
+        row_idx = 4
+        for row_idx in range(row_idx, sheet.nrows):
             row = {}
 
             col_idx = 0
