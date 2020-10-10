@@ -44,6 +44,7 @@ INT, FLOAT, STRING, BOOL = r"int", r"float", r"string", r"bool"
 INT_ARR, FLOAT_ARR, STRING_ARR, BOOL_ARR = r"int[]", r"float[]", r"string[]", r"bool[]"
 VECTOR2, VECTOR3, EULER, COLOR = 'vector2', 'vector3', 'euler', 'color'
 LUA = 'lua'
+COMMENT = 'comment'
 
 CONFIG_FILE = '.ava-x2l-config.json'
 
@@ -109,6 +110,7 @@ def make_table(filename):
                     and type_dict[col_idx].lower() != VECTOR3
                     and type_dict[col_idx].lower() != EULER
                     and type_dict[col_idx].lower() != COLOR
+                    and type_dict[col_idx].lower() != COMMENT
                     and type_dict[col_idx].lower() != LUA):
                 return {}, -1, 'sheet[{}] row[{}] column[{}] type wrong'.format(sheet_name, row_idx, col_idx)
 
@@ -157,6 +159,8 @@ def make_table(filename):
                     v = str(value)
                 elif type_dict[col_idx].lower() == LUA and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
+                elif type_dict[col_idx].lower() == COMMENT:
+                    continue
                 row[col_idx] = v
 
             excel['data'][sheet_name][row[0]] = row
