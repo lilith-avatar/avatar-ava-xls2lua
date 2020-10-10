@@ -137,10 +137,7 @@ def make_table(filename):
                 elif type_dict[col_idx].lower() == STRING:
                     v = format_str(value)
                 elif type_dict[col_idx].lower() == BOOL and vtype == xlrd.XL_CELL_BOOLEAN:
-                    if value == 1:
-                        v = 'true'
-                    else:
-                        v = 'false'
+                    v = 'true' if value == 1 else 'false'
                 elif type_dict[col_idx].lower() == INT_ARR and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
                 elif type_dict[col_idx].lower() == FLOAT_ARR and vtype == xlrd.XL_CELL_TEXT:
