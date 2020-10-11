@@ -78,7 +78,7 @@ def make_table(filename):
 
         # 必须大于4行
         if sheet.nrows < 4:
-            return {}, -1, 'sheet[' + sheet_name + ']' + ' rows must > 4'
+            return {}, -1, 'sheet[{}] rows must > 4'.format(sheet_name)
 
         # 解析标题
         title = {}
@@ -116,15 +116,24 @@ def make_table(filename):
                 return {}, -1, 'sheet[{}] row[{}] column[{}] type wrong'.format(sheet_name, row_idx, col_idx)
 
         if type_dict[0].lower() != INT:
-            return {}, -1, 'sheet[' + sheet_name + ']' + ' first column type must be [Int]'
+            return {}, -1, 'sheet[{}] first column type must be [Int]'.format(sheet_name)
 
         excel['meta'][sheet_name]['type'] = type_dict
 
-        # 读取主键key1，key2，key3，主键类型必须是Int或者String
+        # * 读取主键key1，key2，key3，主键类型必须是Int或者String
         row_idx, col_idx = 3, 0
-        # TODO: 读取主键
         for col_idx in range(sheet.ncols):
-            pass
+            key = sheet.cell_value(row_idx, col_idx).lower()
+            col_name = sheet.cell_value(1, col_idx).lower()
+            col_type = sheet.cell_value(2, col_idx).lower()
+            if key in (KEY_1, KEY_2, KEY_3):
+                if col_type not in (INT, STRING):
+                    return {}, -1, 'sheet[{}] {} type must be Int or Float'.format(sheet_name, key)
+                excel[key] = col_name
+
+        # 检查主键
+        if (KEY_3 in excel and not (KEY_2 in excel and KEY_1 in excel)) or (KEY_2 in excel and KEY_1 not in excel):
+            return {}, -1, 'sheet[{}] {} {} {} are wrong'.format(sheet_name, KEY_1, KEY_2, KEY_3)
 
         # 读取数据，从第5行开始
         row_idx = 4
