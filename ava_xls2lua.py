@@ -494,7 +494,7 @@ def check_config():
         with open(CONFIG_FILE, 'w') as json_file:
             json_file.write(json.dumps(default_config, indent=True))
             json_file.close()
-            proc1 = subprocess.check_call(['attrib', '+H', CONFIG_FILE])
+            subprocess.check_call(['attrib', '+H', CONFIG_FILE])
             log(INFO + 'generate config at {}'.format(CONFIG_FILE))
 
 
@@ -504,6 +504,7 @@ def load_config():
 
     with open(CONFIG_FILE) as json_file:
         config = json.load(json_file)
+        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
         INPUT_FOLDER = config['input_folder']
         OUTPUT_FOLDER = config['output_folder']
         OUTPUT_LUA_TEMPLATE = config['output_lua_template']
