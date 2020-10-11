@@ -238,7 +238,7 @@ def get_float_arr(v):
 
 
 def get_string_arr(v):
-    if v is None:
+    if not v:
         return '{}'
     tmp_vec_str = v.split(',')
     res_str = '{'
@@ -346,7 +346,7 @@ def get_color(v):
 
 
 def get_lua(v):
-    if v is None:
+    if not v:
         return 'nil'
     return v
 
