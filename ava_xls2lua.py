@@ -97,20 +97,20 @@ def make_table(filename):
             if type_type != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'sheet[{}] type columns[{}] must be string'.format(sheet_name, col_idx + 1)
             if (type_name != INT
-                        and type_name != FLOAT
-                        and type_name != STRING
-                        and type_name != BOOL
-                        and type_name != INT_ARR
-                        and type_name != FLOAT_ARR
-                        and type_name != STRING_ARR
-                        and type_name != BOOL_ARR
-                        and type_name != VECTOR2
-                        and type_name != VECTOR3
-                        and type_name != EULER
-                        and type_name != COLOR
-                        and type_name != COMMENT
-                        and type_name != LUA
-                    ):
+                    and type_name != FLOAT
+                    and type_name != STRING
+                    and type_name != BOOL
+                    and type_name != INT_ARR
+                    and type_name != FLOAT_ARR
+                    and type_name != STRING_ARR
+                    and type_name != BOOL_ARR
+                    and type_name != VECTOR2
+                    and type_name != VECTOR3
+                    and type_name != EULER
+                    and type_name != COLOR
+                    and type_name != COMMENT
+                    and type_name != LUA
+                ):
                 return {}, -1, 'sheet[{}] type column[{}] type wrong'.format(sheet_name, col_idx + 1)
             type_dict[title] = type_name
 
@@ -184,6 +184,8 @@ def make_table(filename):
                 if title == key3:
                     key_v3 = v
 
+                # TODO: 检查key_v1是类型是string的话，不能为数字，需要符合lua命名规范
+
             # 键值检查
             if key1 and key2 and key3:
                 if key_v1 not in data:
@@ -240,7 +242,7 @@ def get_float(v):
 def get_string(v):
     if v is None:
         return ''
-    return v
+    return '\'' + v + '\''
 
 
 def get_bool(v):
@@ -396,91 +398,85 @@ def get_lua(v):
 
 
 def write_to_lua_script(excel, output_path, xls_file):
-    return
     for (sheet_name, sheet) in excel['data'].items():
+        meta = excel['meta'][sheet_name]
+        type_dict = meta['type_dict']
+        key1 = meta[KEY_1] if KEY_1 in meta else None
+        key2 = meta[KEY_2] if KEY_2 in meta else None
+        key3 = meta[KEY_3] if KEY_3 in meta else None
+
         file_name = OUTPUT_LUA_TEMPLATE.format(sheet_name=sheet_name)
         suffix = 'Xls'
         outfp = codecs.open(output_path + '/' + file_name, 'w', "utf-8")
         outfp.write(SCRIPT_HEAD % (excel['filename']))
         outfp.write('local ' + sheet_name + suffix + ' = {\r\n')
-        type_dict = excel['meta'][sheet_name]['type_dict']
-        cnt = 0
-        for (row_idx, row) in sheet.items():
-            outfp.write('    [' + str(row_idx) + '] = {\r\n')
-            for (key, value) in row.items():
-                if type_dict[key] == INT:
-                    tmp_str = get_int(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == FLOAT:
-                    tmp_str = get_float(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == STRING:
-                    tmp_str = get_string(value)
-                    outfp.write(
-                        '        ' + key + ' = \'' + str(tmp_str) + '\'')
-                elif type_dict[key] == BOOL:
-                    tmp_str = get_bool(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == INT_ARR:
-                    tmp_str = get_int_arr(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == FLOAT_ARR:
-                    tmp_str = get_float_arr(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == STRING_ARR:
-                    tmp_str = get_string_arr(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == BOOL_ARR:
-                    tmp_str = get_bool_arr(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == VECTOR2:
-                    tmp_str = get_vector2(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == VECTOR3:
-                    tmp_str = get_vector3(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == EULER:
-                    tmp_str = get_euler(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == COLOR:
-                    tmp_str = get_color(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                elif type_dict[key] == LUA:
-                    tmp_str = get_lua(value)
-                    outfp.write(
-                        '        ' + key + ' = ' + str(tmp_str))
-                else:
-                    outfp.close()
-                    raise RuntimeError(
-                        'key "{}" type "{}" is wrong.'.format(key, type_dict[key]))
 
-                cnt += 1
-                if cnt == len(row):
-                    outfp.write('\r\n')
+        if key1 and key2 and key3:
+            pass
+        elif key1 and key2:
+            pass
+        elif key1:
+            for (key, row) in sheet.items():
+                if type_dict[key1] == INT:
+                    outfp.write('    [{}] = {{\r\n'.format(key))
                 else:
-                    outfp.write(',\r\n')
+                    outfp.write('    {} = {{\r\n'.format(key))
+                write_to_lua_row(row, type_dict, outfp, 2)
+                if key == len(sheet.items()):
+                    outfp.write('    }\r\n')
+                else:
+                    outfp.write('    },\r\n')
 
-            if row_idx == len(sheet.items()):
-                outfp.write('    }\r\n')
-            else:
-                outfp.write('    },\r\n')
         outfp.write('}\r\n\r\nreturn ' + sheet_name + suffix + '\r\n')
         outfp.close()
         global lua_cnt
         lua_cnt += 1
         log(SUCCESS + '[{{0:02d}}] {{1:{0}}} => {{2}}'
             .format(max_xls_name_len).format(lua_cnt, xls_file, file_name))
+
+
+def write_to_lua_row(row, type_dict, outfp, indent_cnt):
+    cnt = 0
+    indent = ''
+    for _ in range(indent_cnt):
+        indent += '    '
+    for (key, value) in row.items():
+        if type_dict[key] == INT:
+            outfp.write('{}{} = {}'.format(indent, key, get_int(value)))
+        elif type_dict[key] == FLOAT:
+            outfp.write('{}{} = {}'.format(indent, key, get_float(value)))
+        elif type_dict[key] == STRING:
+            outfp.write('{}{} = {}'.format(indent, key, get_string(value)))
+        elif type_dict[key] == BOOL:
+            outfp.write('{}{} = {}'.format(indent, key, get_bool(value)))
+        elif type_dict[key] == INT_ARR:
+            outfp.write('{}{} = {}'.format(indent, key, get_int_arr(value)))
+        elif type_dict[key] == FLOAT_ARR:
+            outfp.write('{}{} = {}'.format(indent, key, get_float_arr(value)))
+        elif type_dict[key] == STRING_ARR:
+            outfp.write('{}{} = {}'.format(indent, key, get_string_arr(value)))
+        elif type_dict[key] == BOOL_ARR:
+            outfp.write('{}{} = {}'.format(indent, key, get_bool_arr(value)))
+        elif type_dict[key] == VECTOR2:
+            outfp.write('{}{} = {}'.format(indent, key, get_vector2(value)))
+        elif type_dict[key] == VECTOR3:
+            outfp.write('{}{} = {}'.format(indent, key, get_vector3(value)))
+        elif type_dict[key] == EULER:
+            outfp.write('{}{} = {}'.format(indent, key, get_euler(value)))
+        elif type_dict[key] == COLOR:
+            outfp.write('{}{} = {}'.format(indent, key, get_color(value)))
+        elif type_dict[key] == LUA:
+            outfp.write('{}{} = {}'.format(indent, key, get_lua(value)))
+        else:
+            outfp.close()
+            raise RuntimeError(
+                'key "{}" type "{}" is wrong'.format(key, type_dict[key]))
+
+        cnt += 1
+        if cnt == len(row):
+            outfp.write('\r\n')
+        else:
+            outfp.write(',\r\n')
 
 
 def check_config():
