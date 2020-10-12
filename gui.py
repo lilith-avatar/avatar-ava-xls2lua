@@ -17,6 +17,13 @@ __status__ = 'Development'
 
 
 class MainFrame(wx.Frame):
+    prefix_color = {
+        'info': 'blue',
+        'error': 'red',
+        'sucess': 'sea green',
+        'failed': 'red'
+    }
+
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
         self.SetIcon(wx.Icon('icon.ico'))
@@ -167,7 +174,9 @@ class MainFrame(wx.Frame):
 
     def write(self, prefix, s):
         self.logs.WriteText('[')
+        self.logs.BeginTextColour(self.prefix_color[prefix])
         self.logs.WriteText(prefix)
+        self.logs.EndTextColour()
         self.logs.WriteText(']')
         self.logs.WriteText(' {}\n'.format(s))
 
