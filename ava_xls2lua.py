@@ -120,7 +120,7 @@ def make_table(filename):
         row_idx, col_idx = 3, 0
         for col_idx in range(sheet.ncols):
             key = sheet.cell_value(row_idx, col_idx).lower()
-            col_name = sheet.cell_value(1, col_idx).lower()
+            col_name = sheet.cell_value(1, col_idx)
             col_type = sheet.cell_value(2, col_idx).lower()
             if key in (KEY_1, KEY_2, KEY_3):
                 if col_type not in (INT, STRING):
