@@ -165,8 +165,11 @@ class MainFrame(wx.Frame):
         self.panel.Layout()
         self.cb_config.SetValue(False)
 
-    def write(self, s):
-        self.logs.WriteText(s + '\n')
+    def write(self, prefix, s):
+        self.logs.WriteText('[')
+        self.logs.WriteText(prefix)
+        self.logs.WriteText(']')
+        self.logs.WriteText(' {}\n'.format(s))
 
 
 class App(wx.App):
