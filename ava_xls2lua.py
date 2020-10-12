@@ -479,6 +479,13 @@ def write_to_lua_row(row, type_dict, outfp, indent_cnt):
             outfp.write(',\r\n')
 
 
+def get_indent(depth):
+    indent = ''
+    for _ in range(depth):
+        indent += '    '
+    return indent
+
+
 def check_config():
     if not os.path.isfile(CONFIG_FILE):
         global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
