@@ -412,20 +412,11 @@ def write_to_lua_script(excel, output_path, xls_file):
         outfp.write('local ' + sheet_name + suffix + ' = {\r\n')
 
         if key1 and key2 and key3:
-            pass
+            write_to_lua_kv(sheet, [key1, key2, key3], type_dict, outfp, 1)
         elif key1 and key2:
-            pass
+            write_to_lua_kv(sheet, [key1, key2], type_dict, outfp, 1)
         elif key1:
-            for (key, row) in sheet.items():
-                if type_dict[key1] == INT:
-                    outfp.write('    [{}] = {{\r\n'.format(key))
-                else:
-                    outfp.write('    {} = {{\r\n'.format(key))
-                write_to_lua_row(row, type_dict, outfp, 2)
-                if key == len(sheet.items()):
-                    outfp.write('    }\r\n')
-                else:
-                    outfp.write('    },\r\n')
+            write_to_lua_kv(sheet, [key1], type_dict, outfp, 1)
 
         outfp.write('}\r\n\r\nreturn ' + sheet_name + suffix + '\r\n')
         outfp.close()
@@ -435,11 +426,32 @@ def write_to_lua_script(excel, output_path, xls_file):
             .format(max_xls_name_len).format(lua_cnt, xls_file, file_name))
 
 
-def write_to_lua_row(row, type_dict, outfp, indent_cnt):
+def write_to_lua_kv(data, keys, type_dict, outfp, depth):
     cnt = 0
-    indent = ''
-    for _ in range(indent_cnt):
-        indent += '    '
+    keyX = keys[depth - 1]
+    indent = get_indent(depth)
+    prefix = '[{}] = {{\r\n' if type_dict[keyX] == INT else '{} = {{\r\n'
+    suffix_comma = '},\r\n'
+    suffix_end = '}\r\n'
+
+    prefix = indent + prefix
+    suffix_comma = indent + suffix_comma
+    suffix_end = indent + suffix_end
+
+    for (key, value) in data.items():
+        outfp.write(prefix.format(key))
+        if depth == len(keys):
+            write_to_lua_row(value, type_dict, outfp, depth + 1)
+        else:
+            write_to_lua_kv(value, keys, type_dict,
+                            outfp, depth + 1)
+        cnt += 1
+        outfp.write(suffix_end if cnt == len(data) else suffix_comma)
+
+
+def write_to_lua_row(row, type_dict, outfp, indent_depth):
+    cnt = 0
+    indent = get_indent(indent_depth)
     for (key, value) in row.items():
         if type_dict[key] == INT:
             outfp.write('{}{} = {}'.format(indent, key, get_int(value)))
