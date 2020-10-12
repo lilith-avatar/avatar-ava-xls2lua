@@ -573,7 +573,8 @@ def main():
         xls_file = xls_files[i]
         t, ret, errstr = make_table(INPUT_FOLDER + '/' + xls_file)
         if ret != 0:
-            log(FAILED, '[{}] {}'.format(i + 1, xls_file))
+            lua_cnt += 1
+            log(FAILED, '[{:02d}] {}'.format(lua_cnt, xls_file))
             raise RuntimeError(errstr)
         else:
             write_to_lua_script(t, output_path, xls_file)
