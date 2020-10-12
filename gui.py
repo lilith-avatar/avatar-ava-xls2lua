@@ -7,13 +7,13 @@ import wx
 import wx.richtext as rt
 import ava_xls2lua as x2l
 
-__authors__ = ["Yuancheng Zhang"]
-__copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
-__credits__ = ["Yuancheng Zhang"]
-__license__ = "MIT"
-__version__ = "2.0.0"
-__maintainer__ = "Yuancheng Zhang"
-__status__ = "Development"
+__authors__ = ['Yuancheng Zhang']
+__copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
+__credits__ = ['Yuancheng Zhang']
+__license__ = 'MIT'
+__version__ = '2.0.0'
+__maintainer__ = 'Yuancheng Zhang'
+__status__ = 'Development'
 
 
 class MainFrame(wx.Frame):

@@ -15,13 +15,13 @@ import xlrd
 import subprocess
 import json
 
-__authors__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
-__copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
-__credits__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
-__license__ = "MIT"
-__version__ = "2.0.0"
-__maintainer__ = "Yuancheng Zhang"
-__status__ = "Development"
+__authors__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
+__copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
+__credits__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
+__license__ = 'MIT'
+__version__ = '2.0.0'
+__maintainer__ = 'Yuancheng Zhang'
+__status__ = 'Development'
 
 INPUT_FOLDER = './xls'
 OUTPUT_FOLDER = './code'
