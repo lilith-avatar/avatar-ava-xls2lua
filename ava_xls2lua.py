@@ -26,6 +26,7 @@ __status__ = 'Development'
 INPUT_FOLDER = './xls'
 OUTPUT_FOLDER = './code'
 OUTPUT_LUA_TEMPLATE = "['World']['Global']['Xls']['{sheet_name}XlsModule'].ModuleScript.lua"
+KV_XLS = ['GlobalSetting.xlsx']
 
 INFO = '\033[36minfo\033[0m'
 ERROR = '\033[31merror\033[0m'
@@ -500,11 +501,11 @@ def get_indent(depth):
 
 def check_config():
     if not os.path.isfile(CONFIG_FILE):
-        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
         default_config = {
             'input_folder': INPUT_FOLDER,
             'output_folder': OUTPUT_FOLDER,
-            'output_lua_template': OUTPUT_LUA_TEMPLATE
+            'output_lua_template': OUTPUT_LUA_TEMPLATE,
+            'kv_xls': KV_XLS
         }
         with open(CONFIG_FILE, 'w') as json_file:
             json_file.write(json.dumps(default_config, indent=True))
@@ -515,14 +516,15 @@ def check_config():
 
 def load_config():
     check_config()
-    log(INFO, 'load config from {}'.format(CONFIG_FILE))
+    log(INFO, 'load config from \t{}'.format(CONFIG_FILE))
 
     with open(CONFIG_FILE) as json_file:
         config = json.load(json_file)
-        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE
+        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE, KV_XLS
         INPUT_FOLDER = config['input_folder']
         OUTPUT_FOLDER = config['output_folder']
         OUTPUT_LUA_TEMPLATE = config['output_lua_template']
+        KV_XLS = config['kv_xls']
         json_file.close()
 
 
@@ -533,7 +535,8 @@ def save_config():
     config = {
         'input_folder': INPUT_FOLDER,
         'output_folder': OUTPUT_FOLDER,
-        'output_lua_template': OUTPUT_LUA_TEMPLATE
+        'output_lua_template': OUTPUT_LUA_TEMPLATE,
+        'kv_xls': KV_XLS
     }
     with open(CONFIG_FILE, 'r+') as json_file:
         json_file.truncate(0)  # need '0' when using r+
@@ -547,8 +550,10 @@ def main():
     lua_cnt = 0
     input_path = INPUT_FOLDER
     output_path = OUTPUT_FOLDER
+    kv_xls = KV_XLS
     log(INFO, 'input path: \t{}'.format(input_path))
     log(INFO, 'output path: \t{}'.format(output_path))
+    log(INFO, 'kv excels: \t\t{}'.format(kv_xls))
     if not os.path.exists(input_path):
         raise RuntimeError('input path does NOT exist.')
     if not os.path.exists(output_path):
