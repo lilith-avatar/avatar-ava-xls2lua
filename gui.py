@@ -13,7 +13,7 @@ __authors__ = ['Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
 __credits__ = ['Yuancheng Zhang']
 __license__ = 'MIT'
-__version__ = '2.3.0'
+__version__ = '2.3.1'
 __maintainer__ = 'Yuancheng Zhang'
 __status__ = 'Development'
 
@@ -69,7 +69,7 @@ class MainFrame(wx.Frame):
 
         self.sizer_cfg_4 = wx.BoxSizer(wx.HORIZONTAL)
         self.st4 = wx.StaticText(
-            self.panel, label=' Output Lua Template:', size=(120, -1))
+            self.panel, label=' KV Format Excel Files:', size=(120, -1))
         self.sizer_cfg_4.Add(self.st4, flag=wx.RIGHT, border=4)
         self.tc4 = wx.TextCtrl(self.panel)
         self.sizer_cfg_4.Add(self.tc4,  proportion=1)
