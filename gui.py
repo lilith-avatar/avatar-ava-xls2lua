@@ -6,6 +6,8 @@
 import wx
 import wx.richtext as rt
 import ava_xls2lua as x2l
+import sys
+import os
 
 __authors__ = ['Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
@@ -26,7 +28,7 @@ class MainFrame(wx.Frame):
 
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
-        self.SetIcon(wx.Icon('icon.ico'))
+        self.SetIcon(wx.Icon(self.resource_path('icon.ico')))
         self.panel = wx.Panel(self)
 
         self.sizer_v = wx.BoxSizer(wx.VERTICAL)
@@ -179,6 +181,15 @@ class MainFrame(wx.Frame):
         self.logs.EndTextColour()
         self.logs.WriteText(']')
         self.logs.WriteText(' {}\n'.format(s))
+
+    def resource_path(self, relative_path):
+        """ Get absolute path to resource, works for dev and for PyInstaller """
+        try:
+            # PyInstaller creates a temp folder and stores path in _MEIPASS
+            base_path = sys._MEIPASS
+        except Exception:
+            base_path = os.path.abspath('.')
+        return os.path.join(base_path, relative_path)
 
 
 class App(wx.App):
