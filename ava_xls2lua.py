@@ -128,7 +128,7 @@ def make_table(filename):
                 meta[key] = col_name
 
         # 检查主键
-        if (KEY_3 in meta and not (KEY_2 in meta and KEY_1 in meta)) or (KEY_2 in meta and KEY_1 not in meta):
+        if (KEY_3 in meta and not (KEY_2 in meta and KEY_1 in meta)) or (KEY_2 in meta and KEY_1 not in meta) or (KEY_1 not in meta):
             return {}, -1, 'sheet[{}] {} {} {} are wrong'.format(sheet_name, KEY_1, KEY_2, KEY_3)
 
         key1 = meta[KEY_1] if KEY_1 in meta else None
