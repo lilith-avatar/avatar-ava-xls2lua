@@ -171,8 +171,10 @@ def make_table(filename):
                     v = str(value)
                 elif type_dict[title] == COLOR and vtype == xlrd.XL_CELL_TEXT:
                     v = str(value)
-                elif type_dict[title] == LUA and vtype == xlrd.XL_CELL_TEXT:
+                elif type_dict[title] == LUA and vtype in (xlrd.XL_CELL_TEXT, xlrd.XL_CELL_NUMBER):
                     v = str(value)
+                elif type_dict[title] == LUA and vtype == xlrd.XL_CELL_BOOLEAN:
+                    v = 'true' if value == 1 else 'false'
                 elif type_dict[title] == COMMENT:
                     continue
 
@@ -215,7 +217,6 @@ def make_table(filename):
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is duplicated'.format(sheet_name, row_idx + 1, KEY_1, key1)
                 else:
                     data[key_v1] = row
-
     return excel, 0, 'ok'
 
 
@@ -413,11 +414,16 @@ def write_to_lua_script(excel, output_path, xls_file):
         outfp.write('local ' + sheet_name + suffix + ' = {\r\n')
 
         if key1 and key2 and key3:
-            write_to_lua_kv(sheet, [key1, key2, key3], type_dict, outfp, 1)
+            write_to_lua_key(sheet, [key1, key2, key3], type_dict, outfp, 1)
         elif key1 and key2:
-            write_to_lua_kv(sheet, [key1, key2], type_dict, outfp, 1)
+            write_to_lua_key(sheet, [key1, key2], type_dict, outfp, 1)
+        elif key1 and (xls_file not in KV_XLS):
+            write_to_lua_key(sheet, [key1], type_dict, outfp, 1)
         elif key1:
             write_to_lua_kv(sheet, [key1], type_dict, outfp, 1)
+        else:
+            outfp.close()
+            raise RuntimeError('key missing')
 
         outfp.write('}\r\n\r\nreturn ' + sheet_name + suffix + '\r\n')
         outfp.close()
@@ -427,7 +433,7 @@ def write_to_lua_script(excel, output_path, xls_file):
             .format(max_xls_name_len).format(lua_cnt, xls_file, file_name))
 
 
-def write_to_lua_kv(data, keys, type_dict, outfp, depth):
+def write_to_lua_key(data, keys, type_dict, outfp, depth):
     cnt = 0
     keyX = keys[depth - 1]
     indent = get_indent(depth)
@@ -444,15 +450,15 @@ def write_to_lua_kv(data, keys, type_dict, outfp, depth):
         if depth == len(keys):
             write_to_lua_row(value, type_dict, outfp, depth + 1)
         else:
-            write_to_lua_kv(value, keys, type_dict,
+            write_to_lua_key(value, keys, type_dict,
                             outfp, depth + 1)
         cnt += 1
         outfp.write(suffix_end if cnt == len(data) else suffix_comma)
 
 
-def write_to_lua_row(row, type_dict, outfp, indent_depth):
+def write_to_lua_row(row, type_dict, outfp, depth):
     cnt = 0
-    indent = get_indent(indent_depth)
+    indent = get_indent(depth)
     for (key, value) in row.items():
         if type_dict[key] == INT:
             outfp.write('{}{} = {}'.format(indent, key, get_int(value)))
@@ -490,6 +496,40 @@ def write_to_lua_row(row, type_dict, outfp, indent_depth):
             outfp.write('\r\n')
         else:
             outfp.write(',\r\n')
+
+
+def write_to_lua_kv(data, keys, type_dict, outfp, depth):
+    cnt = 0
+    keyX = keys[depth - 1]
+    indent = get_indent(depth)
+    prefix = '[{}] = ' if type_dict[keyX] == INT else '{} = '
+    suffix_comma = ',\r\n'
+    suffix_end = '\r\n'
+
+    prefix = indent + prefix
+    suffix_comma = suffix_comma
+    suffix_end = suffix_end
+
+    for (_, kv) in data.items():
+        key, value = None, None
+        for (k, v) in kv.items():
+            if type_dict[k] == INT and k.lower() == 'key':
+                key = get_int(v)
+            elif type_dict[k] == STRING and k.lower() == 'key':
+                key = get_lua(v)
+            elif type_dict[k] == LUA and k.lower() == 'value':
+                value = get_lua(v)
+            else:
+                raise RuntimeError('kv excel format is wrong')
+
+        if not (key and value):
+            outfp.close()
+            raise RuntimeError('kv excel format is wrong')
+
+        outfp.write(prefix.format(key))
+        outfp.write(value)
+        cnt += 1
+        outfp.write(suffix_end if cnt == len(data) else suffix_comma)
 
 
 def get_indent(depth):
