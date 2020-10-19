@@ -45,7 +45,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Add(self.logs, 1, wx.ALIGN_TOP | wx.EXPAND)
         self.panel.SetSizerAndFit(self.sizer_v)
 
-        # Config
+        # Config - input path
         self.sizer_cfg_1 = wx.BoxSizer(wx.HORIZONTAL)
         self.st1 = wx.StaticText(
             self.panel, label=' Input Path:', size=(120, -1))
@@ -53,6 +53,7 @@ class MainFrame(wx.Frame):
         self.tc1 = wx.TextCtrl(self.panel)
         self.sizer_cfg_1.Add(self.tc1, proportion=1)
 
+        # Config - output path
         self.sizer_cfg_2 = wx.BoxSizer(wx.HORIZONTAL)
         self.st2 = wx.StaticText(
             self.panel, label=' Output Path:', size=(120, -1))
@@ -60,6 +61,7 @@ class MainFrame(wx.Frame):
         self.tc2 = wx.TextCtrl(self.panel)
         self.sizer_cfg_2.Add(self.tc2,  proportion=1)
 
+        # Config - output lua template
         self.sizer_cfg_3 = wx.BoxSizer(wx.HORIZONTAL)
         self.st3 = wx.StaticText(
             self.panel, label=' Output Lua Template:', size=(120, -1))
@@ -67,12 +69,21 @@ class MainFrame(wx.Frame):
         self.tc3 = wx.TextCtrl(self.panel)
         self.sizer_cfg_3.Add(self.tc3,  proportion=1)
 
+        # Config - kv format excels
         self.sizer_cfg_4 = wx.BoxSizer(wx.HORIZONTAL)
         self.st4 = wx.StaticText(
             self.panel, label=' KV Format Excel Files:', size=(120, -1))
         self.sizer_cfg_4.Add(self.st4, flag=wx.RIGHT, border=4)
         self.tc4 = wx.TextCtrl(self.panel)
         self.sizer_cfg_4.Add(self.tc4,  proportion=1)
+
+        # Config - translate excel
+        self.sizer_cfg_5 = wx.BoxSizer(wx.HORIZONTAL)
+        self.st5 = wx.StaticText(
+            self.panel, label=' Translate Excel File:', size=(120, -1))
+        self.sizer_cfg_5.Add(self.st5, flag=wx.RIGHT, border=4)
+        self.tc5 = wx.TextCtrl(self.panel)
+        self.sizer_cfg_5.Add(self.tc5,  proportion=1)
 
         self.sizer_v.Add(self.sizer_cfg_1, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
@@ -81,6 +92,8 @@ class MainFrame(wx.Frame):
         self.sizer_v.Add(self.sizer_cfg_3, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
         self.sizer_v.Add(self.sizer_cfg_4, flag=wx.EXPAND |
+                         wx.LEFT | wx.RIGHT | wx.TOP, border=4)
+        self.sizer_v.Add(self.sizer_cfg_5, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
 
         # Bottom sizer
@@ -124,6 +137,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_2, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_4, recursive=True)
+        self.sizer_v.Hide(self.sizer_cfg_5, recursive=True)
 
     # 响应button事件
     def on_convert_click(self, event):
@@ -145,6 +159,7 @@ class MainFrame(wx.Frame):
         x2l.OUTPUT_FOLDER = self.tc2.GetValue()
         x2l.OUTPUT_LUA_TEMPLATE = self.tc3.GetValue()
         x2l.KV_XLS = self.tc4.GetValue()
+        x2l.TRANSLATE_XLS = self.tc5.GetValue()
         x2l.save_config()
 
     def load_config(self):
@@ -154,14 +169,17 @@ class MainFrame(wx.Frame):
         self.tc2.Clear()
         self.tc3.Clear()
         self.tc4.Clear()
+        self.tc5.Clear()
         self.tc1.Refresh()
         self.tc2.Refresh()
         self.tc3.Refresh()
         self.tc4.Refresh()
+        self.tc5.Refresh()
         self.tc1.write(x2l.INPUT_FOLDER)
         self.tc2.write(x2l.OUTPUT_FOLDER)
         self.tc3.write(x2l.OUTPUT_LUA_TEMPLATE)
         self.tc4.write(str(x2l.KV_XLS))
+        self.tc5.write(x2l.TRANSLATE_XLS)
 
     def on_config_checked(self, event):
         self.toggle_config()
@@ -178,6 +196,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Show(self.sizer_cfg_2, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_4, recursive=True)
+        self.sizer_v.Show(self.sizer_cfg_5, recursive=True)
         self.panel.Layout()
         self.cb_config.SetValue(True)
 
@@ -187,6 +206,7 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_2, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_4, recursive=True)
+        self.sizer_v.Hide(self.sizer_cfg_5, recursive=True)
         self.panel.Layout()
         self.cb_config.SetValue(False)
 
