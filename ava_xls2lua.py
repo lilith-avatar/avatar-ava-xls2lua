@@ -19,7 +19,7 @@ __authors__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
 __copyright__ = "Copyright 2020, Lilith Games, Project DaVinci, Avatar Team"
 __credits__ = ["zfengzhen", "luzexi", "Yuancheng Zhang"]
 __license__ = "MIT"
-__version__ = "1.1"
+__version__ = "1.2.3"
 __maintainer__ = "Yuancheng Zhang"
 __status__ = "Development"
 
