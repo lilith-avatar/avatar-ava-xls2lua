@@ -508,7 +508,7 @@ def write_to_lua_row(row, type_dict, outfp, depth):
         elif type_dict[key] == LUA:
             outfp.write('{}{} = {}'.format(indent, key, get_lua(value)))
         elif type_dict[key] == LANG:
-            outfp.write('{}{} = {}'.format(indent, key, get_lua(value)))
+            outfp.write('{}{} = {}'.format(indent, key, get_lang(value)))
         else:
             outfp.close()
             raise RuntimeError(
