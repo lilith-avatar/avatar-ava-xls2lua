@@ -356,7 +356,9 @@ def write_to_lua_script(excel, output_path, xls_file):
         outfp.write('local ' + sheet_name + suffix + ' = {\r\n')
         title = excel['meta'][sheet_name]['title']
         type_dict = excel['meta'][sheet_name]['type']
+        cnt_r = 0
         for (row_idx, row) in sheet.items():
+            cnt_c = 0
             outfp.write('    [' + str(row_idx) + '] = {\r\n')
             for (col_idx, field) in row.items():
                 if type_dict[col_idx].lower() == INT:
@@ -416,12 +418,14 @@ def write_to_lua_script(excel, output_path, xls_file):
                     raise RuntimeError(
                         'type "{}" is wrong.'.format(type_dict[col_idx]))
 
-                if col_idx == len(row.items()) - 1:
+                cnt_c += 1
+                if cnt_c == len(row.items()):
                     outfp.write('\r\n')
                 else:
                     outfp.write(',\r\n')
 
-            if row_idx == len(sheet.items()):
+            cnt_r += 1
+            if cnt_r == len(sheet.items()):
                 outfp.write('    }\r\n')
             else:
                 outfp.write('    },\r\n')
