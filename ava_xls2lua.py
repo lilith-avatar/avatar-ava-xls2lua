@@ -28,6 +28,7 @@ OUTPUT_FOLDER = './code'
 OUTPUT_LUA_TEMPLATE = "['World']['Global']['Xls']['{sheet_name}XlsModule'].ModuleScript.lua"
 KV_XLS = ['GlobalSetting.xlsx']
 TRANSLATE_XLS = 'Translate.xlsx'
+TRANSLATE_LANG = ['CHS', 'CHT', 'EN', 'JP']
 
 INFO = '\033[36minfo\033[0m'
 ERROR = '\033[31merror\033[0m'
@@ -548,6 +549,7 @@ def check_config():
             'output_lua_template': OUTPUT_LUA_TEMPLATE,
             'kv_xls': KV_XLS,
             'translate_xls': TRANSLATE_XLS,
+            'translate_lang': TRANSLATE_LANG,
         }
         with open(CONFIG_FILE, 'w') as json_file:
             json_file.write(json.dumps(default_config, indent=True))
@@ -562,12 +564,13 @@ def load_config():
 
     with open(CONFIG_FILE) as json_file:
         config = json.load(json_file)
-        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE, KV_XLS, TRANSLATE_XLS
+        global INPUT_FOLDER, OUTPUT_FOLDER, OUTPUT_LUA_TEMPLATE, KV_XLS, TRANSLATE_XLS, TRANSLATE_LANG
         INPUT_FOLDER = config['input_folder']
         OUTPUT_FOLDER = config['output_folder']
         OUTPUT_LUA_TEMPLATE = config['output_lua_template']
         KV_XLS = config['kv_xls']
         TRANSLATE_XLS = config['translate_xls']
+        TRANSLATE_LANG = config['translate_lang']
         json_file.close()
 
 
@@ -580,7 +583,8 @@ def save_config():
         'output_folder': OUTPUT_FOLDER,
         'output_lua_template': OUTPUT_LUA_TEMPLATE,
         'kv_xls': KV_XLS,
-        'translate_xls': TRANSLATE_XLS
+        'translate_xls': TRANSLATE_XLS,
+        'translate_lang': TRANSLATE_LANG
     }
     with open(CONFIG_FILE, 'r+') as json_file:
         json_file.truncate(0)  # need '0' when using r+
@@ -596,10 +600,12 @@ def main():
     output_path = OUTPUT_FOLDER
     kv_xls = KV_XLS
     translate_xls = TRANSLATE_XLS
+    translate_lang = TRANSLATE_LANG
     log(INFO, 'input path: \t{}'.format(input_path))
     log(INFO, 'output path: \t{}'.format(output_path))
     log(INFO, 'kv excels: \t\t{}'.format(kv_xls))
     log(INFO, 'translate excel: \t{}'.format(translate_xls))
+    log(INFO, 'translate lang: \t{}'.format(translate_lang))
     if not os.path.exists(input_path):
         raise RuntimeError('input path does NOT exist.')
     if not os.path.exists(output_path):
