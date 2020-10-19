@@ -2,6 +2,8 @@
  "input_folder": "./xls",
  "output_folder": "./code",
  "output_lua_template": "['World']['Global']['Xls']['{sheet_name}XlsModule'].ModuleScript.lua",
- "kv_xls": "['GlobalSetting.xlsx']",
- "translate_xls": "Translate.xlsx"
+ "kv_xls": [
+  "GlobalSetting.xlsx"
+ ],
+ "translate_xls": "LanguagePack.xlsx"
 }
