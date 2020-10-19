@@ -85,14 +85,6 @@ class MainFrame(wx.Frame):
         self.tc5 = wx.TextCtrl(self.panel)
         self.sizer_cfg_5.Add(self.tc5,  proportion=1)
 
-        # Config - translate languages
-        self.sizer_cfg_6 = wx.BoxSizer(wx.HORIZONTAL)
-        self.st6 = wx.StaticText(
-            self.panel, label=' Translate language:', size=(120, -1))
-        self.sizer_cfg_6.Add(self.st6, flag=wx.RIGHT, border=4)
-        self.tc6 = wx.TextCtrl(self.panel)
-        self.sizer_cfg_6.Add(self.tc6,  proportion=1)
-
         self.sizer_v.Add(self.sizer_cfg_1, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
         self.sizer_v.Add(self.sizer_cfg_2, flag=wx.EXPAND |
@@ -102,8 +94,6 @@ class MainFrame(wx.Frame):
         self.sizer_v.Add(self.sizer_cfg_4, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
         self.sizer_v.Add(self.sizer_cfg_5, flag=wx.EXPAND |
-                         wx.LEFT | wx.RIGHT | wx.TOP, border=4)
-        self.sizer_v.Add(self.sizer_cfg_6, flag=wx.EXPAND |
                          wx.LEFT | wx.RIGHT | wx.TOP, border=4)
 
         # Bottom sizer
@@ -148,7 +138,6 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_4, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_5, recursive=True)
-        self.sizer_v.Hide(self.sizer_cfg_6, recursive=True)
 
     # 响应button事件
     def on_convert_click(self, event):
@@ -171,7 +160,6 @@ class MainFrame(wx.Frame):
         x2l.OUTPUT_LUA_TEMPLATE = self.tc3.GetValue()
         x2l.KV_XLS = self.tc4.GetValue()
         x2l.TRANSLATE_XLS = self.tc5.GetValue()
-        x2l.TRANSLATE_LANG = self.tc6.GetValue()
         x2l.save_config()
 
     def load_config(self):
@@ -182,19 +170,16 @@ class MainFrame(wx.Frame):
         self.tc3.Clear()
         self.tc4.Clear()
         self.tc5.Clear()
-        self.tc6.Clear()
         self.tc1.Refresh()
         self.tc2.Refresh()
         self.tc3.Refresh()
         self.tc4.Refresh()
         self.tc5.Refresh()
-        self.tc6.Refresh()
         self.tc1.write(x2l.INPUT_FOLDER)
         self.tc2.write(x2l.OUTPUT_FOLDER)
         self.tc3.write(x2l.OUTPUT_LUA_TEMPLATE)
         self.tc4.write(str(x2l.KV_XLS))
         self.tc5.write(x2l.TRANSLATE_XLS)
-        self.tc6.write(str(x2l.TRANSLATE_LANG))
 
     def on_config_checked(self, event):
         self.toggle_config()
@@ -212,7 +197,6 @@ class MainFrame(wx.Frame):
         self.sizer_v.Show(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_4, recursive=True)
         self.sizer_v.Show(self.sizer_cfg_5, recursive=True)
-        self.sizer_v.Show(self.sizer_cfg_6, recursive=True)
         self.panel.Layout()
         self.cb_config.SetValue(True)
 
@@ -223,7 +207,6 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_4, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_5, recursive=True)
-        self.sizer_v.Hide(self.sizer_cfg_6, recursive=True)
         self.panel.Layout()
         self.cb_config.SetValue(False)
 
