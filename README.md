@@ -1,4 +1,46 @@
-xls2lua
+# Avatar Ava-xls2lua
+莉莉丝游戏达芬奇计划内容组Excel转Lua工具（适用于Ava框架）
+
+[![](https://img.shields.io/badge/-DaVinci-MediumPurple)](http://api.projectdavinci.com/)
+[![](https://img.shields.io/badge/project-Ava-ff69b4)](https://github.com/lilith-avatar/avatar-ava/projects/1)
+[![](https://img.shields.io/badge/-wiki-DeepSkyBlue)](https://github.com/lilith-avatar/avatar-ava/wiki)
+[![](https://img.shields.io/github/v/release/lilith-avatar/avatar-ava-xls2lua)](https://github.com/lilith-avatar/avatar-ava-xls2lua/releases)
+
+[![ava-xls2lua](https://repository-images.githubusercontent.com/297525841/444b3700-fee4-11ea-9eed-f345ead4f44b)](https://github.com/lilith-avatar/avatar-ava-xls2lua)
+
+## 介绍
+
+ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成Lua脚本
+
+Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
+
+程序语言：[Python 3](https://www.python.org/)
+
+引用模块：[`xlrd`](https://pypi.org/project/xlrd/)，[`xlwt`](https://pypi.org/project/xlutils/)，[`xlutils`](https://pypi.org/project/xlutils/)，[`wxPython`](https://wxpython.org/)
+
+## 主要功能
+
+* 将Excel文件批量生成对应的Lua脚本，支持`.xls` `.xlsx` `.xlsm`
+* 可以根据不同的项目结构配置目录和文件名前后缀
+* 支持多语言导出，自动在翻译表中生成翻译ID和条目
+
+## 在Excel中支持的数据类型
+
+* 基础类型：Int, Float, String, Bool
+* 数组类型：Int[], Float[], String[], Bool[]
+* 编辑器类型：Vector2, Vector3, Euler, Color
+* Lua代码：Lua
+* 批注类型：Comment（不会被转换成Lua代码）
+* 翻译类型：Translate（在翻译表中生成对应的翻译ID，并导出Lua代码）
+
+## 使用
+
+## Excel格式
+
+## 翻译表的配置
+
+## 示例
+
 ---------------------------
 Convert xls to lua script for game resource
 
