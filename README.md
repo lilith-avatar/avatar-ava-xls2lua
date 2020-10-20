@@ -41,7 +41,7 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 双击`ava-x2l.exe`，打开ava-xls2lua GUI
 
-勾选右下角的Config可以配置相关设置
+勾选GUI右下角的`Config`可以配置相关设置
 
 ![GUI](https://user-images.githubusercontent.com/64057282/96594287-08599500-131d-11eb-9c6b-f64ba1dc42ef.png)
 
@@ -53,9 +53,17 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 ## 使用
 
+配置完成之后，点击GUI左下角的`Convert`按钮，开始进行Lua脚本的生成
+
+如果中途遇到报错，log会显示报错
+
+![GUI](https://user-images.githubusercontent.com/64057282/96595434-3e4b4900-131e-11eb-98e1-22f0b507f2da.png)
+
 ## Excel格式
 
-## 翻译表的配置
+### Sheet的格式
+### 表头的格式
+### 翻译表的格式与配置
 
 ## 示例
 
