@@ -55,7 +55,9 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 配置完成之后，点击GUI左下角的`Convert`按钮，开始进行Lua脚本的生成
 
-如果中途遇到报错，log会显示报错
+成功转换的lua脚本，会显示`[sucess]`，全部脚本生成之后，会显示`[info] done`
+
+如果中途遇到报错，log会显示报错`[error]`或`[failed]`，根据相关提示进行检查
 
 ![GUI](https://user-images.githubusercontent.com/64057282/96595434-3e4b4900-131e-11eb-98e1-22f0b507f2da.png)
 
