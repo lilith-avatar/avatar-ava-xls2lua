@@ -16,7 +16,11 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 程序语言：[Python 3](https://www.python.org/)
 
-引用模块：[`xlrd`](https://pypi.org/project/xlrd/)，[`xlwt`](https://pypi.org/project/xlutils/)，[`xlutils`](https://pypi.org/project/xlutils/)，[`wxPython`](https://wxpython.org/)
+引用模块：[xlrd](https://pypi.org/project/xlrd/)，[xlwt](https://pypi.org/project/xlutils/)，[xlutils](https://pypi.org/project/xlutils/)，[wxPython](https://wxpython.org/)
+
+打包模块：[PyInstaller](https://pypi.org/project/pyinstaller/)
+
+证书：[MIT License](https://github.com/lilith-avatar/avatar-ava-xls2lua/blob/master/LICENSE)
 
 ## 主要功能
 
@@ -26,12 +30,18 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 ## 在Excel中支持的数据类型
 
-* 基础类型：Int, Float, String, Bool
-* 数组类型：Int[], Float[], String[], Bool[]
-* 编辑器类型：Vector2, Vector3, Euler, Color
+* 基础类型：Int，Float，String，Bool
+* 数组类型：Int[]，Float[]，String[]，Bool[]
+* 编辑器类型：Vector2，Vector3，Euler，Color
 * Lua代码：Lua
 * 批注类型：Comment（不会被转换成Lua代码）
 * 翻译类型：Translate（在翻译表中生成对应的翻译ID，并导出Lua代码）
+
+## 配置介绍
+
+双击`ava-x2l.exe`，打开ava-xls2lua GUI
+
+右下角的Config可以配置相关设置
 
 ## 使用
 
