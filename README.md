@@ -30,18 +30,26 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 ## 在Excel中支持的数据类型
 
-* 基础类型：Int，Float，String，Bool
-* 数组类型：Int[]，Float[]，String[]，Bool[]
-* 编辑器类型：Vector2，Vector3，Euler，Color
-* Lua代码：Lua
-* 批注类型：Comment（不会被转换成Lua代码）
-* 翻译类型：Translate（在翻译表中生成对应的翻译ID，并导出Lua代码）
+* 基础类型：`Int`，`Float`，`String`，`Bool`
+* 数组类型：`Int[]`，`Float[]`，`String[]`，`Bool[]`
+* 编辑器类型：`Vector2`，`Vector3`，`Euler`，`Color`
+* Lua代码：`Lua`
+* 批注类型：`Comment`（不会被转换成Lua代码）
+* 翻译类型：`Translate`（在翻译表中生成对应的翻译ID，并导出Lua代码）
 
 ## 配置介绍
 
 双击`ava-x2l.exe`，打开ava-xls2lua GUI
 
-右下角的Config可以配置相关设置
+勾选右下角的Config可以配置相关设置
+
+![GUI](https://user-images.githubusercontent.com/64057282/96594287-08599500-131d-11eb-9c6b-f64ba1dc42ef.png)
+
+* Input Path：Excel文件所在目录
+* Output Path：生成的Lua脚本所在目录
+* Output Lua Template：Lua脚本文件名前缀，其中`{sheet_name}`是通配符，请保留
+* KV Format Excel Files：配置方式为KV键值对的表，只含有`Key`和`Value`，通常用于全局变量
+* Translate Excel Files：翻译表的名称，必须在Excel文件目录下
 
 ## 使用
 
