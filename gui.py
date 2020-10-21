@@ -116,7 +116,7 @@ class MainFrame(wx.Frame):
         # version
         version = self.get_git_version()
         self.st_version = wx.StaticText(
-            self.panel, label=version, size=(100, -1))
+            self.panel, label=version, size=(100, -1), style=wx.ALIGN_RIGHT)
         self.sizer_btm_r.Add(self.st_version,
                              flag=wx.RIGHT | wx.ALIGN_RIGHT, border=4)
 
@@ -143,7 +143,7 @@ class MainFrame(wx.Frame):
     # git version
     def get_git_version(self):
         version = os.popen('git describe --tags').read()
-        version = version.rstrip()
+        version = version.rstrip()[:-9] + '  '
         return version
 
     # 响应button事件
