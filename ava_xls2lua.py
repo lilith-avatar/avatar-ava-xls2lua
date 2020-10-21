@@ -16,6 +16,7 @@ import xlwt
 from xlutils.copy import copy
 import subprocess
 import json
+import re
 
 __authors__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
@@ -450,7 +451,11 @@ def update_translate_xls(filename):
                 sheet_edit.write(new_row_idx, 0, lang_id)
                 sheet_edit.write(new_row_idx, 1, lang_chs)
                 new_row_idx += 1
-    book_xlwt.save(filename)
+    try:
+        book_xlwt.save(filename)
+    except:
+        raise PermissionError(
+            '%s is opened, please close it and try again' % TRANSLATE_XLS)
 
 
 def write_to_lua_script(excel, output_path, xls_file):
@@ -706,8 +711,11 @@ def run():
         if gui is None:
             log(INFO, 'press Enter to exit...')
             input()
-    except (RuntimeError, ValueError, SyntaxError, AssertionError) as err:
-        log(ERROR, str(err))
+    except (RuntimeError, ValueError, SyntaxError, AssertionError, PermissionError) as err:
+        errType = str(type(err))
+        errType = re.findall(r"<class \'(.+?)\'>", errType)[0]
+        errStr = '[%s] ' % errType + str(err)
+        log(ERROR,errStr)
         if gui is None:
             log(INFO, 'check error please...')
             input()
