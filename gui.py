@@ -114,8 +114,9 @@ class MainFrame(wx.Frame):
                              flag=wx.RIGHT | wx.ALIGN_RIGHT, border=4)
 
         # version
+        version = self.get_git_version()
         self.st_version = wx.StaticText(
-            self.panel, label='v' + __version__, size=(40, -1))
+            self.panel, label=version, size=(100, -1))
         self.sizer_btm_r.Add(self.st_version,
                              flag=wx.RIGHT | wx.ALIGN_RIGHT, border=4)
 
@@ -138,6 +139,12 @@ class MainFrame(wx.Frame):
         self.sizer_v.Hide(self.sizer_cfg_3, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_4, recursive=True)
         self.sizer_v.Hide(self.sizer_cfg_5, recursive=True)
+
+    # git version
+    def get_git_version(self):
+        version = os.popen('git describe --tags').read()
+        version = version.rstrip()
+        return version
 
     # 响应button事件
     def on_convert_click(self, event):
