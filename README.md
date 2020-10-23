@@ -1,5 +1,5 @@
 # Avatar Ava-xls2lua
-莉莉丝游戏达芬奇计划内容组Excel转Lua工具（适用于Ava框架）
+莉莉丝游戏达芬奇计划内容组Excel转Lua工具（适用于Ava框架），简称x2l
 
 [![](https://img.shields.io/badge/-DaVinci-MediumPurple)](http://api.projectdavinci.com/)
 [![](https://img.shields.io/badge/project-Ava-ff69b4)](https://github.com/lilith-avatar/avatar-ava/projects/1)
@@ -10,7 +10,8 @@
 
 ## 介绍
 
-ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成Lua脚本
+ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成Lua脚本，简称x2l
+
 
 Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
@@ -28,7 +29,7 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 * 可以根据不同的项目结构配置目录和文件名前后缀
 * 支持多语言导出，自动在翻译表中生成翻译ID和条目
 
-## 在Excel中支持的数据类型
+## <a name='vartype'>在Excel中支持的数据类型</a>
 
 * 基础类型：`Int`，`Float`，`String`，`Bool`
 * 数组类型：`Int[]`，`Float[]`，`String[]`，`Bool[]`
@@ -59,12 +60,24 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 
 如果中途遇到报错，log会显示报错`[error]`或`[failed]`，根据相关提示进行检查
 
-![GUI](https://user-images.githubusercontent.com/64057282/96595434-3e4b4900-131e-11eb-98e1-22f0b507f2da.png)
+![GUI](https://user-images.githubusercontent.com/4829591/96977162-4a6a1d00-154f-11eb-9851-52fbcc5d0a13.png)
 
 ## Excel格式
 
 ### Sheet的格式
+Excel文件中，有`Output_`前缀的Sheet表格会生成对应的lua文件
+
+支持Excel中多张Sheet的导出
+
+![GUI](https://user-images.githubusercontent.com/4829591/96976073-f3177d00-154d-11eb-8cca-576656cd336a.png)
+
 ### 表头的格式
+
+表头有四行，分别是：变量中文描述，英文变量名，变量类型，主键
+* 变量中文描述：表述列的信息，如何配置，不会导出到Lua中
+* 英文变量名：导出Lua脚本中的变量名称
+* 变量类型：x2l会根据不动的变量类型生成对应的Lua行，[支持类型](#vartype)
+
 ### 翻译表的格式与配置
 
 ## 示例
