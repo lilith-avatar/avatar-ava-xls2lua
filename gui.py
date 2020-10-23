@@ -15,7 +15,7 @@ __credits__ = ['Yuancheng Zhang']
 __license__ = 'MIT'
 __version__ = '2.4.0'
 __maintainer__ = 'Yuancheng Zhang'
-__status__ = 'Development'
+__status__ = 'Production'
 
 
 class MainFrame(wx.Frame):

@@ -24,7 +24,7 @@ __credits__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __license__ = 'MIT'
 __version__ = '2.4.0'
 __maintainer__ = 'Yuancheng Zhang'
-__status__ = 'Development'
+__status__ = 'Production'
 
 INPUT_FOLDER = './xls'
 OUTPUT_FOLDER = './code'
