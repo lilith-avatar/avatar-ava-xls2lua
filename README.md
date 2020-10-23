@@ -6,7 +6,7 @@
 [![](https://img.shields.io/badge/-wiki-DeepSkyBlue)](https://github.com/lilith-avatar/avatar-ava/wiki)
 [![](https://img.shields.io/github/v/release/lilith-avatar/avatar-ava-xls2lua)](https://github.com/lilith-avatar/avatar-ava-xls2lua/releases)
 
-[![ava-xls2lua](https://repository-images.githubusercontent.com/297525841/444b3700-fee4-11ea-9eed-f345ead4f44b)](https://github.com/lilith-avatar/avatar-ava-xls2lua)
+[![logo](https://user-images.githubusercontent.com/4829591/96980600-01679800-1552-11eb-9bc3-b6e9a6f5bcde.png)](https://github.com/lilith-avatar/avatar-ava-xls2lua)
 
 ## 介绍
 
@@ -38,7 +38,7 @@ Clone from [luzexi/xls2lua](https://github.com/luzexi/xls2lua)
 * 批注类型：`Comment`（不会被转换成Lua代码）
 * 翻译类型：`Translate`（在翻译表中生成对应的翻译ID，并导出Lua代码）
 
-## 配置介绍
+## <a name='config'>配置介绍</a>
 
 双击`ava-x2l.exe`，打开ava-xls2lua GUI
 
@@ -83,6 +83,9 @@ Excel文件中，有`Output_`前缀的Sheet表格会生成对应的lua文件
 ![GUI](https://user-images.githubusercontent.com/4829591/96977951-628e6c00-1550-11eb-86bf-22fc4cb7ed7c.png)
 
 ### KV样式表格与配置
+
+在[配置](#config)中KV样式的表格在`Config`中配置
+
 
 ### 翻译表的格式与配置
 
