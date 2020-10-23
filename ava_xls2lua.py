@@ -102,21 +102,21 @@ def make_table(filename):
             if type_type != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'sheet[{}] type columns[{}] must be string'.format(sheet_name, col_idx + 1)
             if (type_name != INT
-                and type_name != FLOAT
-                and type_name != STRING
-                and type_name != BOOL
-                and type_name != INT_ARR
-                and type_name != FLOAT_ARR
-                and type_name != STRING_ARR
-                and type_name != BOOL_ARR
-                and type_name != VECTOR2
-                and type_name != VECTOR3
-                and type_name != EULER
-                and type_name != COLOR
-                and type_name != COMMENT
-                and type_name != LUA
-                and type_name != TRANSLATE
-                ):
+                    and type_name != FLOAT
+                    and type_name != STRING
+                    and type_name != BOOL
+                    and type_name != INT_ARR
+                    and type_name != FLOAT_ARR
+                    and type_name != STRING_ARR
+                    and type_name != BOOL_ARR
+                    and type_name != VECTOR2
+                    and type_name != VECTOR3
+                    and type_name != EULER
+                    and type_name != COLOR
+                    and type_name != COMMENT
+                    and type_name != LUA
+                    and type_name != TRANSLATE
+                    ):
                 return {}, -1, 'sheet[{}] type column[{}] type wrong'.format(sheet_name, col_idx + 1)
             type_dict[title] = type_name
 
@@ -715,7 +715,7 @@ def run():
         errType = str(type(err))
         errType = re.findall(r"<class \'(.+?)\'>", errType)[0]
         errStr = '[%s] ' % errType + str(err)
-        log(ERROR,errStr)
+        log(ERROR, errStr)
         if gui is None:
             log(INFO, 'check error please...')
             input()
