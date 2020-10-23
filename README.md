@@ -77,6 +77,12 @@ Excel文件中，有`Output_`前缀的Sheet表格会生成对应的lua文件
 * 变量中文描述：表述列的信息，如何配置，不会导出到Lua中
 * 英文变量名：导出Lua脚本中的变量名称
 * 变量类型：x2l会根据不动的变量类型生成对应的Lua行，[支持类型](#vartype)
+* 主键：最多有三个，`Key1`，`Key2`，`Key3`，x2l会根据主键来生成Lua Table的结构，主键必须是`Int`或`String`
+* 数据：从第`5`行开始
+
+![GUI](https://user-images.githubusercontent.com/4829591/96977951-628e6c00-1550-11eb-86bf-22fc4cb7ed7c.png)
+
+### KV样式表格与配置
 
 ### 翻译表的格式与配置
 
