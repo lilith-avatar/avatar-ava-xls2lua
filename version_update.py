@@ -29,7 +29,7 @@ def update_version(file_path):
                     old_version = line.split(delim)[1]
                     new_version = get_git_version()
                     print('%s \t%s => %s' %
-                          (file_path, old_version, new_version))
+                          (file_path.ljust(20), old_version, new_version))
                     line = "__version = '%s'\n" % (new_version)
                 fout.write(line)
 
@@ -43,7 +43,7 @@ def get_git_version():
 def main(argv):
     print(argv)
     for i in range(len(argv)):
-        print(update_version(argv[i]))
+        update_version(argv[i])
 
 
 if __name__ == '__main__':
