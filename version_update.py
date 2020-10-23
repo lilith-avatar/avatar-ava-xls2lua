@@ -35,8 +35,10 @@ def update_version(file_path):
 
 def get_git_version():
     version = os.popen('git describe --tags').read()
-    version = version.rstrip()[:-9]
-    return version
+    version = version.split('-')
+    if (len(version) == 3):
+        version[0] = version[0] + '.' + version[1]
+    return version[0]
 
 
 def main(argv):
