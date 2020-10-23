@@ -86,7 +86,6 @@ Excel文件中，有`Output_`前缀的Sheet表格会生成对应的lua文件
   * `Des`：类型为`Comment`，不进行Lua生成
 * [KV表格示例](#eg-kv)
 
-
 ### 翻译表的格式与配置
 
 * 在[配置](#config)中KV样式的表格在`Config`中配置
@@ -95,8 +94,10 @@ Excel文件中，有`Output_`前缀的Sheet表格会生成对应的lua文件
 
 ## 示例
 
-### <a name='eg-kv'>KV表格</a>
+### <a name='eg-kv'>KV样式的表格导出</a>
+
 在`Config`中配置`[GlobalSetting.xlsx]`表为KV格式的表格，并生成Lua脚本
+
 ![KV](https://user-images.githubusercontent.com/4829591/96987406-8acc9980-1555-11eb-97a5-83410069bbf8.png)
 
 ```lua
