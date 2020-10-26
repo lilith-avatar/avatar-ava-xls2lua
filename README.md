@@ -82,6 +82,7 @@ Excel文件中，有`output_`前缀的Sheet表格会生成对应的lua文件
   * `Key`：类型为`Int`或`String`，设为主键`Key1`
   * `Value`：类型为`Lua`，直接在数据中填写Lua
   * `Des`：类型为`Comment`，不进行Lua生成
+* KV样式表中不支持`Translate`类型
 * [KV表格示例](#eg-kv)
 
 ### 翻译表的格式与配置
