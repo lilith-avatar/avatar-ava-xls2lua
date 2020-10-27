@@ -249,31 +249,31 @@ def format_str(v):
 
 def get_int(v):
     if v is None:
-        return 0
+        return 'nil'
     return v
 
 
 def get_float(v):
     if v is None:
-        return 0
+        return 'nil'
     return v
 
 
 def get_string(v):
     if v is None:
-        return ''
+        return 'nil'
     return '\'' + v + '\''
 
 
 def get_bool(v):
     if v is None:
-        return 'false'
+        return 'nil'
     return v
 
 
 def get_int_arr(v):
     if v is None:
-        return '{}'
+        return 'nil'
     tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
@@ -289,7 +289,7 @@ def get_int_arr(v):
 
 def get_float_arr(v):
     if v is None:
-        return '{}'
+        return 'nil'
     tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
@@ -305,7 +305,7 @@ def get_float_arr(v):
 
 def get_string_arr(v):
     if not v:
-        return '{}'
+        return 'nil'
     tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
@@ -321,7 +321,7 @@ def get_string_arr(v):
 
 def get_bool_arr(v):
     if v is None:
-        return '{}'
+        return 'nil'
     tmp_vec_str = v.split(',')
     res_str = '{'
     i = 0
@@ -337,11 +337,11 @@ def get_bool_arr(v):
 
 def get_vector2(v):
     if v is None:
-        return 'Vector2.Zero'
+        return 'nil'
     tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 2:
         # todo: error check
-        return 'Vector2.Zero'
+        return 'nil'
     res_str = 'Vector2('
     i = 0
     for val in tmp_vec_str:
@@ -356,11 +356,11 @@ def get_vector2(v):
 
 def get_vector3(v):
     if v is None:
-        return 'Vector3.Zero'
+        return 'nil'
     tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 3:
         # todo: error check
-        return 'Vector3.Zero'
+        return 'nil'
     res_str = 'Vector3('
     i = 0
     for val in tmp_vec_str:
@@ -375,11 +375,11 @@ def get_vector3(v):
 
 def get_euler(v):
     if v is None:
-        return 'EulerDegree(0, 0, 0)'
+        return 'nil'
     tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 3:
         # todo: error check
-        return 'EulerDegree(0, 0, 0)'
+        return 'nil'
     res_str = 'EulerDegree('
     i = 0
     for val in tmp_vec_str:
@@ -394,11 +394,11 @@ def get_euler(v):
 
 def get_color(v):
     if v is None:
-        return 'Color(0, 0, 0, 0)'
+        return 'nil'
     tmp_vec_str = v.split(',')
     if len(tmp_vec_str) != 4:
         # todo: error check
-        return 'Color(0, 0, 0, 0)'
+        return 'nil'
     res_str = 'Color('
     i = 0
     for val in tmp_vec_str:
