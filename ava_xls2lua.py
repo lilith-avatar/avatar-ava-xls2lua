@@ -22,7 +22,7 @@ __authors__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
 __credits__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __license__ = 'MIT'
-__version__ = 'v2.4.0.17'
+__version__ = 'v2.4.3.1'
 __maintainer__ = 'Yuancheng Zhang'
 __status__ = 'Production'
 
@@ -94,7 +94,7 @@ def make_table(filename):
             type_name = str(sheet.cell_value(2, col_idx)).lower()
             type_type = sheet.cell_type(2, col_idx)
             # 检查标题数据格式
-            if not title:
+            if title is None:
                 return {}, -1, 'sheet[{}] title columns[{}] must be string'.format(sheet_name, col_idx + 1)
             if title_type != xlrd.XL_CELL_TEXT:
                 return {}, -1, 'sheet[{}] title columns[{}] must be string'.format(sheet_name, col_idx + 1)
@@ -200,36 +200,39 @@ def make_table(filename):
                 # TODO: 检查key_v1是类型是string的话，不能为数字，需要符合lua命名规范
 
             # 键值检查
-            if key1 and key2 and key3:
+            if not (key1 is None or key2 is None or key3 is None):
                 if key_v1 not in data:
                     data[key_v1] = {}
                 if key_v2 not in data[key_v1]:
                     data[key_v1][key_v2] = {}
-                if not key_v3:
+                if key_v3 is None:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is empty'.format(sheet_name, row_idx + 1, KEY_3, key3)
                 elif key_v3 in data[key_v1][key_v2]:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is duplicated'.format(sheet_name, row_idx + 1, KEY_3, key3)
                 else:
                     data[key_v1][key_v2][key_v3] = row
                     lang_suffix = '{}_{}_{}'.format(key_v1, key_v2, key_v3)
-            elif key1 and key2:
+            elif not (key1 is None or key2 is None):
                 if key_v1 not in data:
                     data[key_v1] = {}
-                if not key_v2:
+                if key_v2 is None:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is empty'.format(sheet_name, row_idx + 1, KEY_2, key2)
                 elif key_v2 in data[key_v1]:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is duplicated'.format(sheet_name, row_idx + 1, KEY_2, key2)
                 else:
                     data[key_v1][key_v2] = row
                     lang_suffix = '{}_{}'.format(key_v1, key_v2)
-            elif key1:
-                if not key_v1:
+            elif key1 is not None:
+                if key_v1 is None:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is empty'.format(sheet_name, row_idx + 1, KEY_1, key1)
                 elif key_v1 in data:
                     return {}, -1, 'sheet[{}][{}] {} data "{}" is duplicated'.format(sheet_name, row_idx + 1, KEY_1, key1)
                 else:
                     data[key_v1] = row
                     lang_suffix = str(key_v1)
+            else:
+                return {}, -1, 'sheet[{}] missing "Key"s'.format(sheet_name)
+
             for k, v in lang_kv.items():
                 lang_id = v + lang_suffix
                 g_lang_kv[lang_id] = row[k]
