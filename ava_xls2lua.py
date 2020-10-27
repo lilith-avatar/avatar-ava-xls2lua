@@ -22,7 +22,7 @@ __authors__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
 __credits__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __license__ = 'MIT'
-__version__ = 'v2.4.3.1'
+__version__ = 'v2.4.4'
 __maintainer__ = 'Yuancheng Zhang'
 __status__ = 'Production'
 
@@ -307,7 +307,7 @@ def get_float_arr(v):
 
 
 def get_string_arr(v):
-    if not v:
+    if v is None:
         return 'nil'
     tmp_vec_str = v.split(',')
     res_str = '{'
