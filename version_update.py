@@ -24,7 +24,7 @@ def update_version(file_path):
             if line.startswith('__version__'):
                 delim = '"' if '"' in line else "'"
                 old_version = line.split(delim)[1]
-                new_version = get_git_version()
+                new_version = get_git_version().rstrip()
                 print('%s \t%s => %s' %
                       (file_path.ljust(20), old_version, new_version))
                 line = "__version__ = '%s'\n" % (new_version)
@@ -42,11 +42,11 @@ def get_git_version():
 
 
 def main(argv):
-    print(argv)
+    print('files:\t\t', argv)
     for i in range(len(argv)):
         update_version(argv[i])
 
 
 if __name__ == '__main__':
-    print(get_git_version())
+    print('git version:\t', get_git_version().rstrip())
     main(sys.argv[1:])
