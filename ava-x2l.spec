@@ -6,7 +6,7 @@ block_cipher = None
 a = Analysis(['gui.py'],
              pathex=['F:\\Projs\\avatar-ava-xls2lua'],
              binaries=[],
-             datas=[('.\\icon.ico', '.\\')],
+             datas=[('.\\img\\icon.ico', '.\\')],
              hiddenimports=['wx', 'wx._xml'],
              hookspath=[],
              runtime_hooks=[],
@@ -30,4 +30,4 @@ exe = EXE(pyz,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=False , icon='icon.ico')
+          console=False , icon='img\\icon.ico')
