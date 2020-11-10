@@ -28,7 +28,7 @@ class MainFrame(wx.Frame):
 
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
-        self.SetIcon(wx.Icon(self.resource_path('icon.ico')))
+        self.SetIcon(wx.Icon(self.resource_path('img/icon.ico')))
         self.panel = wx.Panel(self)
 
         self.sizer_v = wx.BoxSizer(wx.VERTICAL)
