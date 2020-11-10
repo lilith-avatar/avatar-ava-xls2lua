@@ -13,7 +13,7 @@ __authors__ = ['Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
 __credits__ = ['Yuancheng Zhang']
 __license__ = 'MIT'
-__version__ = 'v2.4.4.3'
+__version__ = 'v2.4.4.8'
 __maintainer__ = 'Yuancheng Zhang'
 __status__ = 'Production'
 
@@ -28,7 +28,7 @@ class MainFrame(wx.Frame):
 
     def __init__(self, parent, title):
         wx.Frame.__init__(self, parent, -1, title, size=wx.Size(720, 320))
-        self.SetIcon(wx.Icon(self.resource_path('img/icon.ico')))
+        self.SetIcon(wx.Icon(self.resource_path('img\\icon.ico')))
         self.panel = wx.Panel(self)
 
         self.sizer_v = wx.BoxSizer(wx.VERTICAL)
