@@ -125,9 +125,9 @@ def make_table(filename):
         # *读取主键key1，key2，key3，主键类型必须是Int或者String
         row_idx, col_idx = 3, 0
         for col_idx in range(sheet.ncols):
-            key = sheet.cell_value(row_idx, col_idx).lower()
-            col_name = sheet.cell_value(1, col_idx)
-            col_type = sheet.cell_value(2, col_idx).lower()
+            key = str(sheet.cell_value(row_idx, col_idx)).lower()
+            col_name = str(sheet.cell_value(1, col_idx))
+            col_type = str(sheet.cell_value(2, col_idx)).lower()
             if key in (KEY_1, KEY_2, KEY_3):
                 if col_type not in (INT, STRING):
                     return {}, -1, 'sheet[{}] {} type must be Int or Float'.format(sheet_name, key)
