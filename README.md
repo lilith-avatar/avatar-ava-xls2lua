@@ -18,6 +18,24 @@ ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成L
 * 打包模块：[PyInstaller](https://pypi.org/project/pyinstaller/)
 * 证书：[MIT License](https://github.com/lilith-avatar/avatar-ava-xls2lua/blob/master/LICENSE)
 
+## 开发文档
+
+### 源代码安装环境
+
+1. 下载并安装 [Python 3.8.6](https://www.python.org/downloads/release/python-386/)
+2. 下载并安装 [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2019)
+3. 点击运行`init.bat`，安装Python库
+
+### 运行Python脚本
+
+打开`cmd`或`PowerShell`，切换到项目根目录
+1. 输入`> python .\ava_xls2lua.py`，运行x2l内核脚本
+2. 输入`> python .\gui.py`，运行GUI和x2l内核
+
+### 用[PyInstaller](https://pypi.org/project/pyinstaller/)发布`.exe`程序
+
+点击运行`build.bat`，自动在根目录下生成`ava-x2l.exe`
+
 ## 主要功能
 
 * 将Excel文件批量生成对应的Lua脚本，支持`.xls` `.xlsx` `.xlsm`
@@ -45,7 +63,7 @@ ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成L
 * KV Format Excel Files：配置方式为KV键值对的表，只含有`Key`和`Value`，通常用于全局变量
 * Translate Excel Files：翻译表的名称，必须在Excel文件目录下
 
-## 使用
+## 如何使用
 
 * 配置完成之后，点击GUI左下角的`Convert`按钮，开始进行Lua脚本的生成
 * 成功转换的lua脚本，会显示`[sucess]`，全部脚本生成之后，会显示`[info] done`
@@ -53,7 +71,6 @@ ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成L
 * [策划表格转换示例](#eg-d)
 
 ![GUI](https://user-images.githubusercontent.com/4829591/96977162-4a6a1d00-154f-11eb-9851-52fbcc5d0a13.png)
-
 
 ## Excel格式
 
