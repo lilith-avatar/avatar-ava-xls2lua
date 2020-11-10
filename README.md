@@ -32,9 +32,9 @@ ava-xls2lua是一款编辑器的外部工具，可将Excel表格批量转换成L
 1. 输入`> python .\ava_xls2lua.py`，运行x2l内核脚本
 2. 输入`> python .\gui.py`，运行GUI和x2l内核
 
-### 用[PyInstaller](https://pypi.org/project/pyinstaller/)发布`.exe`程序
+### 用PyInstaller发布`.exe`程序
 
-点击运行`build.bat`，自动在根目录下生成`ava-x2l.exe`
+点击运行`build.bat`，自动在项目根目录下生成`ava-x2l.exe`
 
 ## 主要功能
 
