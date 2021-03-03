@@ -130,8 +130,8 @@ def make_table(filename):
             col_name = str(sheet.cell_value(1, col_idx))
             col_type = str(sheet.cell_value(2, col_idx)).lower()
             if key in (KEY_1, KEY_2, KEY_3):
-                if col_type not in (INT, STRING):
-                    return {}, -1, 'sheet[{}] {} type must be Int or String'.format(sheet_name, key)
+                if col_type not in (INT, FLOAT, STRING):
+                    return {}, -1, 'sheet[{}] {} type must be Int, Float, or String'.format(sheet_name, key)
                 meta[key] = col_name
 
         # 检查主键
@@ -500,7 +500,7 @@ def write_to_lua_key(data, keys, type_dict, outfp, depth):
     cnt = 0
     keyX = keys[depth - 1]
     indent = get_indent(depth)
-    prefix = '[{}] = {{\r\n' if type_dict[keyX] == INT else '{} = {{\r\n'
+    prefix = '[{}] = {{\r\n' if type_dict[keyX] in (INT, FLOAT) else '{} = {{\r\n'
     suffix_comma = '},\r\n'
     suffix_end = '}\r\n'
 
@@ -567,7 +567,7 @@ def write_to_lua_kv(data, keys, type_dict, outfp, depth):
     cnt = 0
     keyX = keys[depth - 1]
     indent = get_indent(depth)
-    prefix = '[{}] = ' if type_dict[keyX] == INT else '{} = '
+    prefix = '[{}] = ' if type_dict[keyX] in (INT, FLOAT) else '{} = '
     suffix_comma = ',\r\n'
     suffix_end = '\r\n'
 
@@ -580,6 +580,8 @@ def write_to_lua_kv(data, keys, type_dict, outfp, depth):
         for (k, v) in kv.items():
             if type_dict[k] == INT and k.lower() == 'key':
                 key = get_int(v)
+            elif type_dict[k] == FLOAT and k.lower() == 'key':
+                key = get_float(v)
             elif type_dict[k] == STRING and k.lower() == 'key':
                 key = get_lua(v)
             elif type_dict[k] == LUA and k.lower() == 'value':
