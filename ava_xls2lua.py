@@ -131,7 +131,7 @@ def make_table(filename):
             col_type = str(sheet.cell_value(2, col_idx)).lower()
             if key in (KEY_1, KEY_2, KEY_3):
                 if col_type not in (INT, STRING):
-                    return {}, -1, 'sheet[{}] {} type must be Int or Float'.format(sheet_name, key)
+                    return {}, -1, 'sheet[{}] {} type must be Int or String'.format(sheet_name, key)
                 meta[key] = col_name
 
         # 检查主键
