@@ -22,7 +22,7 @@ __authors__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __copyright__ = 'Copyright 2020, Lilith Games, Project DaVinci, Avatar Team'
 __credits__ = ['zfengzhen', 'luzexi', 'Yuancheng Zhang']
 __license__ = 'MIT'
-__version__ = 'v2.4.4.8'
+__version__ = 'v2.4.4.16'
 __maintainer__ = 'Yuancheng Zhang'
 __status__ = 'Production'
 
@@ -96,12 +96,12 @@ def make_table(filename):
             type_type = sheet.cell_type(2, col_idx)
             # 检查标题数据格式
             if title is None:
-                return {}, -1, 'sheet[{}] title columns[{}] must be string'.format(sheet_name, col_idx + 1)
+                return {}, -1, 'sheet[{}] title columns[{}] must be String'.format(sheet_name, col_idx + 1)
             if title_type != xlrd.XL_CELL_TEXT:
-                return {}, -1, 'sheet[{}] title columns[{}] must be string'.format(sheet_name, col_idx + 1)
+                return {}, -1, 'sheet[{}] title columns[{}] must be String'.format(sheet_name, col_idx + 1)
             # 检查类型数据格式
             if type_type != xlrd.XL_CELL_TEXT:
-                return {}, -1, 'sheet[{}] type columns[{}] must be string'.format(sheet_name, col_idx + 1)
+                return {}, -1, 'sheet[{}] type columns[{}] must be String'.format(sheet_name, col_idx + 1)
             if (type_name != INT
                     and type_name != FLOAT
                     and type_name != STRING
