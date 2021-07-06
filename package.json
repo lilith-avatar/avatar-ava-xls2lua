@@ -6,8 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "electron-forge start",
-        "package": "electron-packager . ava-x2l --platform=darwin --arch=x64 --overwrite --out ./App --app-version=3.0.0",
-        "make": "electron-forge make"
+        "package-win": "electron-packager . ava-x2l --win --arch=x64 --overwrite --out ./App --app-version=3.0.0 --icon=icon.ico",
+        "package-mac": "electron-packager . ava-x2l --platform=darwin --arch=x64 --overwrite --out ./App --app-version=3.0.0",
+        "setup-win": "node build.js"
     },
     "repository": {
         "type": "git",
@@ -27,8 +28,8 @@
     },
     "homepage": "https://github.com/lilith-avatar/avatar-ava-xls2lua#readme",
     "devDependencies": {
-        "@electron-forge/cli": "^6.0.0-beta.57",
-        "electron": "^13.1.6"
+        "electron": "^13.1.6",
+        "electron-wix-msi": "^3.2.0"
     },
     "dependencies": {
         "fs": "^0.0.1-security",
