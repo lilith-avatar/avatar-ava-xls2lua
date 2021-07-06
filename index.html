@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="./styles/index.css">
     <title>ava-x2l</title>
 </head>
 <body>
+    <script src="./render.js"></script>
+    <div class="log-container">
+
+    </div>
+    <div class="config-bar">
+        <ul>
+            <li class="input-bar">
+                Input Path: <input type="text" id="input-path">
+            </li>
+            <li class="input-bar">
+                Output Path: <input type="text" id="output-path">
+            </li>
+            <li class="input-bar">
+                Output Lua: <input type="text" id="output-lua">
+            </li>
+            <li class="input-bar">
+                KV Format Excel: <input type="text" id="kv-format-excel">
+            </li>
+            <li class="input-bar">
+                Translate Excel File: <input type="text" id="translate-excel-file">
+            </li>
+        </ul>
+    </div>
 </body>
 </html>

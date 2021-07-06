@@ -1,35 +1,38 @@
 {
-    "name": "ava-x2l",
-    "version": "3.0.0",
-    "description": "A tool to convert xls or xlsx to lua",
-    "main": "main.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "electron ."
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/lilith-avatar/avatar-ava-xls2lua.git"
-    },
-    "keywords": [
-        "electron",
-        "js",
-        "lua",
-        "tool",
-        "excel"
-    ],
-    "author": "lilith-avatar",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/lilith-avatar/avatar-ava-xls2lua/issues"
-    },
-    "homepage": "https://github.com/lilith-avatar/avatar-ava-xls2lua#readme",
-    "devDependencies": {
-        "electron": "^13.1.6"
-    },
-    "dependencies": {
-        "fs": "^0.0.1-security",
-        "node-xlrd": "^0.3.10",
-        "xlsx": "^0.17.0"
-    }
+  "name": "ava-x2l",
+  "version": "3.0.0",
+  "description": "A tool to convert xls or xlsx to lua",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilith-avatar/avatar-ava-xls2lua.git"
+  },
+  "keywords": [
+    "electron",
+    "js",
+    "lua",
+    "tool",
+    "excel"
+  ],
+  "author": "lilith-avatar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lilith-avatar/avatar-ava-xls2lua/issues"
+  },
+  "homepage": "https://github.com/lilith-avatar/avatar-ava-xls2lua#readme",
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.57",
+    "electron": "^13.1.6"
+  },
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "node-xlrd": "^0.3.10",
+    "xlsx": "^0.17.0"
+  }
 }

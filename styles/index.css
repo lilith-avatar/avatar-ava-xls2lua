@@ -1,0 +1,49 @@
+* {
+    -webkit-user-select: none;
+    cursor: default !important;
+    -webkit-user-drag: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #F3F3F3;;
+    font-family: "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑", sans-serif;
+    background-color: #22272e;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+ul{
+    list-style: none;
+}
+
+.log-container {
+    width: 95%;
+    height: 350px;
+    margin: 30px auto 10px;
+    border-bottom: 1px solid #545d68;
+}
+
+.settings-btn{
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #adbac7;
+    font-size: 12px;
+    background: #545d68;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    width: 125px;
+}
+
+.input-bar{
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+input{
+    width:500px;
+}
