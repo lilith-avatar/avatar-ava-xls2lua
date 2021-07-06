@@ -26,5 +26,10 @@
     "homepage": "https://github.com/lilith-avatar/avatar-ava-xls2lua#readme",
     "devDependencies": {
         "electron": "^13.1.6"
+    },
+    "dependencies": {
+        "fs": "^0.0.1-security",
+        "node-xlrd": "^0.3.10",
+        "xlsx": "^0.17.0"
     }
 }
