@@ -2,6 +2,7 @@
 /dist
 npm-debug.log*
 .vscode
+.idea
 
 # Dependency directories
 node_modules
