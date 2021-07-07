@@ -4,7 +4,6 @@ const {
     Menu,
     nativeTheme
 } = require('electron');
-const fs = require('fs');
 const path = require('path');
 
 function createWindow() {
@@ -19,7 +18,7 @@ function createWindow() {
     })
     nativeTheme.themeSource = 'dark'
     Menu.setApplicationMenu(null)
-    win.loadFile('index.html')
+    win.loadFile('./views/index.html')
 }
 
 app.whenReady().then(() => {

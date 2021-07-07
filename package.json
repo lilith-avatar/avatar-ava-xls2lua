@@ -5,7 +5,7 @@
     "main": "main.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "electron-forge start",
+        "start": "electron .",
         "package-win": "electron-packager . ava-x2l --win --arch=x64 --overwrite --out ./App --app-version=3.0.0 --icon=icon.ico",
         "package-mac": "electron-packager . ava-x2l --platform=darwin --arch=x64 --overwrite --out ./App --app-version=3.0.0",
         "setup-win": "node build.js"
