@@ -1,7 +1,1 @@
-{
-    "input-path": "./",
-    "output-path": "../Code",
-    "output-lua": "['World']['Global']['Xls']['{sheet_name}XlsModule'].ModuleScript.lua",
-    "kv-format-excel": "['GlobalSetting.xlsx']",
-    "translate-excel-file": "LanguagePack.xls"
-}
+{}

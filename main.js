@@ -4,7 +4,6 @@ const {
     Menu,
     nativeTheme
 } = require('electron');
-const fs = require('fs');
 const path = require('path');
 
 function createWindow() {
@@ -14,12 +13,12 @@ function createWindow() {
         resizable: false,
         icon: './resources/Icon.png',
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'src', 'preload.js')
         }
     })
     nativeTheme.themeSource = 'dark'
     Menu.setApplicationMenu(null)
-    win.loadFile('index.html')
+    win.loadFile('./views/index.html')
 }
 
 app.whenReady().then(() => {
