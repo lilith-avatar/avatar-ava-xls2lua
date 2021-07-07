@@ -13,7 +13,7 @@ function createWindow() {
         resizable: false,
         icon: './resources/Icon.png',
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'src', 'preload.js')
         }
     })
     nativeTheme.themeSource = 'dark'
