@@ -5,6 +5,7 @@ $(document).ready(() => {
     $('#root-folder').on('change', () => {
         const fakePath = document.getElementById('root-folder').files[0].path
         const folderPath = fakePath.match(/.*\\/g)
+        $('#project-selector').val(null)
         //document.getElementById('kv-files').setAttribute('onclick', 'location.href=' + "'" + folderPath + "'")
         document.getElementById('root-folder-text').setAttribute('value', folderPath)
     })
@@ -14,6 +15,7 @@ $(document).ready(() => {
     $('#output-folder').on('change', () => {
         const fakePath = document.getElementById('output-folder').files[0].path
         const folderPath = fakePath.match(/.*\\/g)
+        $('#project-selector').val(null)
         //document.getElementById('kv-files').setAttribute('onclick', 'location.href=' + "'" + folderPath + "'")
         document.getElementById('output-folder-text').setAttribute('value', folderPath)
     })
@@ -28,9 +30,7 @@ $(document).ready(() => {
             window.electron.nameWindow()
         }
     })
+    $('#project-selector').on('change', () => {
+        window.folderChange.selectProject($('#project-selector').val())
+    })
 })
-
-//发送数据
-function sendData() {
-
-}

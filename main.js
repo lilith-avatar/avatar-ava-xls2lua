@@ -24,24 +24,19 @@ function createWindow() {
     nativeTheme.themeSource = 'dark'
     Menu.setApplicationMenu(null)
     win.loadFile('./views/index.html')
-    try {
-        JSON.parse(fs.readFileSync(path.join(__dirname, '.ava-x2l-config.json')))
-    } catch (e) {
-        fs.writeFileSync(path.join(__dirname, '.ava-x2l-config.json'), '{}', 'utf8')
-    }
 
     //! 开发者工具
-    // win.webContents.openDevTools({
-    //     mode: 'right'
-    // })
+    win.webContents.openDevTools({
+        mode: 'right'
+    })
 }
 
 function writeConfigJson(name, data) {
     const oldData = JSON.parse(fs.readFileSync(path.join(__dirname, '.ava-x2l-config.json')))
-    console.log(data);
-    oldData[name] = {
+    oldData['projects'][name] = {
         data
     }
+    oldData['defaultChecked'] = name
     let newdata = JSON.stringify(oldData)
     fs.writeFileSync(path.join(__dirname, '.ava-x2l-config.json'), newdata, 'utf8')
 }
@@ -62,7 +57,7 @@ ipc.on('trans', () => {
         resizable: false,
         frame: false,
         webPreferences: {
-            preload: path.join(__dirname, 'src', 'preload.js')
+            preload: path.join(__dirname, 'src', 'namepre.js')
         }
     })
     nameWin.loadFile('./views/nameWindow.html')
