@@ -9,27 +9,33 @@
 </head>
 <!-- todo: 可能用路由会更好？ -->
 <body>
-    <script src="./render.js"></script>
+    <script type="module" src="../src/jquery.js"></script>
+    <script type="module" src="../src/index.js"></script>
     <div class="log-container">
 
     </div>
     <!-- todo: 这里改成文件选择 -->
     <div class="config-bar">
-        <ul>
-            <li class="input-bar">
-                Input Path: <input type="text" id="input-path">
+        <div class="project-list">
+            <select name="project-selector">
+                <!-- <option value="ava" selected>ava</options> -->
+            </select>
+        </div>
+        <ul class="clear-float file-selector-list">
+            <li>
+                <input type="file" id='root-folder' class="file-selector" webkitdirectory multiple>
+                <input type="text" name="" id="root-folder-text" readonly="readonly">
+                <button class="root-folder" >选择文件夹</button><br>
+                <span id="choose-folder">input folder</span>
             </li>
-            <li class="input-bar">
-                Output Path: <input type="text" id="output-path">
+            <li>
+                <input type="file" id='output-folder' class="file-selector" webkitdirectory multiple>
+                <input type="text" name="" id="output-folder-text" readonly="readonly">
+                <button class="output-folder">选择文件夹</button><br>
+                <span id="choose-folder">output folder</span>
             </li>
-            <li class="input-bar">
-                Output Lua: <input type="text" id="output-lua">
-            </li>
-            <li class="input-bar">
-                KV Format Excel: <input type="text" id="kv-format-excel">
-            </li>
-            <li class="input-bar">
-                Translate Excel File: <input type="text" id="translate-excel-file">
+            <li>
+                <button id="trans">开始转换</button>
             </li>
         </ul>
     </div>

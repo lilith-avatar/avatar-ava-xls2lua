@@ -1,0 +1,60 @@
+* {
+    -webkit-user-select: none;
+    cursor: default !important;
+    -webkit-user-drag: none;
+}
+/* tag */
+body {
+    margin: 0;
+    padding: 0;
+    color: #e4e4e4 !important;
+    font-family: "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑", sans-serif;
+    background-color: #3d4a5c !important;
+    text-align: center;
+}
+
+div{
+    width:100%;
+}
+
+h2{
+    text-align: center;
+    margin-top: 10% !important;
+}
+
+/* id */
+#project-name{
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    height:40px;
+    background-color:#F3F3F3;
+    border-color: #545d68;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 10px !important;
+    margin-left: auto;
+}
+
+.btn-bar{
+    margin-top:20px;
+    margin-left:auto;
+    width:100%;
+    height:100px;
+}
+
+.btn-bar button{
+    width:100px;
+    height:50px;
+    margin-left:auto;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+
+
+.btn-bar button:last-child{
+    width:100px;
+    height:50px;
+    margin-left:20px;
+}

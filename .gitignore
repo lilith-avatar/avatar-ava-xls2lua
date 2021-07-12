@@ -11,3 +11,6 @@ node_modules
 out
 App
 dist
+
+# bower
+bower_components

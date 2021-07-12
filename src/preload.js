@@ -1,17 +1,13 @@
-const fs = require('fs');
-const path = require('path');
+const {
+    ipcRenderer,
+    contextBridge
+} = require('electron');
 
-window.addEventListener('DOMContentLoaded', () => {
-    isFirstTime()
-})
-
-function isFirstTime() {
-    try {
-        const configPath = path.join(__dirname, '..', '.ava-x2l-config.json')
-        const configJson = fs.readFileSync(configPath, 'utf8')
-        const config = JSON.parse(configJson)
-        return config
-    } catch (e) {
-        fs.writeFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), '{}')
+contextBridge.exposeInMainWorld(
+    'electron', {
+        nameWindow: () => ipcRenderer.send('trans'),
+        closeNameWindow: () => ipcRenderer.send('closeNameWindow'),
+        sendTempData: data => ipcRenderer.send('sendTempData', data),
+        nameProject: name => ipcRenderer.send('nameProject', name)
     }
-}
+)

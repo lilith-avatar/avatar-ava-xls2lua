@@ -3,11 +3,11 @@
     cursor: default !important;
     -webkit-user-drag: none;
 }
-
+/* tag */
 body {
     margin: 0;
     padding: 0;
-    color: #F3F3F3;;
+    color: #F3F3F3;
     font-family: "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑", sans-serif;
     background-color: #22272e;
 }
@@ -18,9 +18,30 @@ div {
 }
 
 ul{
+    margin-top: 5%;
+    margin-left: 10px;
     list-style: none;
 }
+li{
+    margin-left: 60px;
+    float: left;
+}
 
+li span {
+    font-size: 15px;
+}
+
+select{
+    display:flex;
+    flex-direction: column;
+    width:250px;
+    height:40px;
+    background-color:#3f4855;
+    color:#F3F3F3;
+    font-size: 25px;
+}
+
+/* class */
 .log-container {
     width: 95%;
     height: 350px;
@@ -44,6 +65,20 @@ ul{
     margin-top: 7px;
 }
 
-input{
-    width:500px;
+.file-selector{
+    display: none;
+}
+
+.clear-float{
+    float: none;
+}
+
+.project-list{
+    width:60%;
+    margin-left: auto;
+    margin-top: 10px;
+}
+
+.file-selector-list{
+    margin-top: 20px;
 }
