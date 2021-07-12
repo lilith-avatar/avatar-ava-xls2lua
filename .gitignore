@@ -6,3 +6,11 @@ npm-debug.log*
 
 # Dependency directories
 node_modules
+
+# ElectronJS
+out
+App
+dist
+
+# bower
+bower_components
