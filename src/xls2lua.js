@@ -101,7 +101,7 @@ function numberToTitle(number) {
 function make_table(filename) {
     // console.log(filename+' is file: '+fs.statSync(filename).isFile())
     var excel = {'filename': filename, 'data': {}, 'meta': {}} 
-
+    let only_filename = filename.split('/').pop()
     let workbook = XLSX.readFile(filename)
     let sheet_names = workbook.SheetNames
     const match_max_column = /^[A-Z]+/g
@@ -261,7 +261,7 @@ function make_table(filename) {
         }
     }
     // for (let e in excel) {console.log(e, excel[e])} 
-    return {t: excel, ret: 0, err_str: filename + ' processed successfully.'}
+    return {t: excel, ret: 0, err_str: only_filename + ' processed successfully.'}
 }
 
 function format_str(st) {
@@ -490,7 +490,7 @@ async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER
         file_list: exl_list, // 已处理的文件列表
         error_messages: err_msgs // 数组，包含每个文件返回的err_str
     }
-    console.log(return_msgs)
+    // console.log(return_msgs)
     return return_msgs
 } 
 
