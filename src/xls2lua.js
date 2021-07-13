@@ -39,7 +39,8 @@ const KEY_1 = 'key1',
     KEY_2 = 'key2',
     KEY_3 = 'key3'
 
-/* cell types: 
+/* 用于检查lua类型是否与Excel中cell类型相符
+cell types: 
 b	Boolean: value interpreted as JS boolean
 e	Error: value is a numeric code and w property stores common name 
 n	Number: value is a JS number 
@@ -62,7 +63,7 @@ const para_checker = {
     'color': {'num_required': 4, 'filler_str': 'Color('}
 }
 
-const TYPES_CHECK_LIST = [INT, FLOAT, STRING, BOOL, INT_ARR, FLOAT_ARR, STRING_ARR, BOOL_ARR, VECTOR2, VECTOR3, EULER, COLOR, COMMENT, LUA, TRANSLATE]
+const types_check_list = [INT, FLOAT, STRING, BOOL, INT_ARR, FLOAT_ARR, STRING_ARR, BOOL_ARR, VECTOR2, VECTOR3, EULER, COLOR, COMMENT, LUA, TRANSLATE]
 
 var lua_cnt = 0 
 var max_xls_name_len = 0 
@@ -79,7 +80,7 @@ function titleToNumber(title) {
     let len = title.length
     for(let i=0; i<len; i++)
         res+=(title[i].charCodeAt()-65+1)*Math.pow(26,len-i-1)
-    return res
+    return res 
 }
 
 /* 辅助功能，Excel实际列数转为列名
@@ -96,6 +97,7 @@ function numberToTitle(number) {
     return res.reverse().join("")
 }
 
+/* 遍历Excel文档中的表，以生成excel对象并将其返回 */
 function make_table(filename) {
     // console.log(filename+' is file: '+fs.statSync(filename).isFile())
     var excel = {'filename': filename, 'data': {}, 'meta': {}} 
@@ -123,7 +125,7 @@ function make_table(filename) {
         } 
         var type_dict = {} 
         /* 检查项：标题行必须为String类型
-           数据类型行必须为String类型且必须为TYPES_CHECK_LIST内允许的类型 */
+           数据类型行必须为String类型且必须为types_check_list内允许的类型 */
         for (let col_idx=1; col_idx<=column_count; col_idx++) {
             let col_title = numberToTitle(col_idx)
             let title_cell = worksheet[col_title+'2']
@@ -139,7 +141,7 @@ function make_table(filename) {
                 if (type_type != 's') {
                     return {t: {}, ret: -1, err_str:'sheet['+sheet_name+'] type column['+(col_idx)+'] must be String'}
                 }
-                if (!TYPES_CHECK_LIST.includes(type_name)) {
+                if (!types_check_list.includes(type_name)) {
                     return {t: {}, ret: -1, err_str:'sheet['+sheet_name+'] type column['+(col_idx)+'] type wrong'}
                 }
                 type_dict[title] = type_name
@@ -213,7 +215,7 @@ function make_table(filename) {
                 // TODO: 检查key_v1是类型是string的话，不能为数字，需要符合lua命名规范
             }
             // console.log('key_v1: %s, key_v2: %s, key_v3: %s',key_v1,key_v2,key_v3)
-            // 键值检查 
+            // 检查项：键值检查 
             if (key1 && key2 && key3) {
                 if (!(key_v1 in data)) data[key_v1] = {}
                 if (!(key_v2 in data[key_v1])) data[key_v1][key_v2] = {}
@@ -258,9 +260,8 @@ function make_table(filename) {
             }
         }
     }
-    // for (let e in excel) {console.log(e, excel[e])}
-    // console.log('phase success')
-    return {t: excel, ret: 0, err_str: 'OK'}
+    // for (let e in excel) {console.log(e, excel[e])} 
+    return {t: excel, ret: 0, err_str: filename + ' processed successfully.'}
 }
 
 function format_str(st) {
@@ -276,10 +277,10 @@ function get_array (v, data_type) {
         return v 
     }
     else {
-        let splited = v.split(',')
+        let splitted = v.split(',')
         let res_str = '{'
         let head_indicator = 0
-        for (let val of splited) {
+        for (let val of splitted) {
             if (! val == '') {
                 if (! head_indicator == 0) res_str += ', '
                 if (data_type == INT_ARR || data_type == FLOAT_ARR) res_str += val 
@@ -298,11 +299,11 @@ function get_obj_property (v, type) {
         return v
     }
     else {
-        let splited = v.split(',')
-        if (! length(splited)==para_checker[type]['para_num']) return 'nil' 
+        let splitted = v.split(',')
+        if (! length(splitted)==para_checker[type]['para_num']) return 'nil' 
         let res_str = para_checker[type]['filler_str']
         let head_indicator = 0 
-        for (let val of splited) {
+        for (let val of splitted) {
             if (! val == '') {
                 if (! head_indicator == 0) res_str += ', '
                 res_str += val.toLowerCase()
@@ -316,8 +317,11 @@ function get_obj_property (v, type) {
 // TODO: Implementation 
 function update_translate_xls (filename) {
     if (! fs.statSync(filename).isFile()) console.error('%s is not a valid filename', filename) 
+    let workbook = XLSX.readFile(filename)
+    let sheet_names = workbook.SheetNames
 }
 
+/* 打开文件写入流outfp，将excel对象写入lua文件 */
 function write_to_lua_script (workbook, output_path) {
     for (let sheet_name in workbook['data']) {
         let sheet = workbook['data'][sheet_name]
@@ -351,12 +355,11 @@ function write_to_lua_script (workbook, output_path) {
             console.error('key missing')
         }
         outfp.write('}\r\n\r\nreturn ' + output_sheetname + suffix + '\r\n')
-        outfp.end() // close file write stream 
+        outfp.end() // 关闭文件写入流
         lua_cnt += 1 
-        // console.log(util.format(SUCCESS))
     }
 }
-
+/* */
 function write_to_lua_key (data, keys, type_dict, outfp, depth) {
     let counter = 0 
     let keyX = keys[depth - 1] 
@@ -382,7 +385,7 @@ function write_to_lua_key (data, keys, type_dict, outfp, depth) {
         }
     }
 }
-
+/* */
 function write_to_lua_row (row, type_dict, outfp, depth) {
     let counter = 0 
     let indent = get_indent(depth) 
@@ -407,7 +410,7 @@ function write_to_lua_row (row, type_dict, outfp, depth) {
         }
     }
 } 
-
+/* */
 function write_to_lua_kv (data, keys, type_dict, outfp, depth) {
     let counter = 0 
     let keyX = keys[depth-1] 
@@ -452,8 +455,11 @@ function get_indent (depth) {
     return indent 
 }
 
-async function main (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER) { 
-    let file_list = []
+async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER) { 
+    let exl_list = []
+    let file_counter = 0
+    let success_counter = 0
+    let err_msgs = []
     if (! fs.existsSync(input_path)) return console.error('input path does NOT exist.')
     if (! fs.existsSync(output_path)) {
         fs.mkdir(output_path, (err) => {
@@ -462,17 +468,30 @@ async function main (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER) {
         })
     }
     fs.readdirSync(input_path).forEach(file => {
-        if (FILE_EXTENSIONS.includes(file.split('.').pop())) file_list.push(file)
+        if (FILE_EXTENSIONS.includes(file.split('.').pop())) exl_list.push(file)
     })
     // todo: move translate excel to last element
-    for (let xls_file of file_list) {
+    for (let xls_file of exl_list) {
         if (xls_file == TRANSLATE_XLS) update_translate_xls(input_path +'/'+ xls_file)
-        let {t, ret, err_str} = make_table(input_path +'/'+ xls_file) 
-        // for (let k in t) console.log(k, t[k])
+        // let {t, ret, err_str} = make_table(input_path +'/'+ xls_file) // input_path为相对路径时
+        let {t, ret, err_str} = make_table(input_path) // input_path为绝对路径
+        file_counter += 1
+        err_msgs.push(err_str)
         if (! ret == 0) {
             console.error(err_str)
-        } else write_to_lua_script(t, output_path)
+        } else {
+            write_to_lua_script(t, output_path)
+            success_counter += 1
+        }
     }
+    let return_msg = util.format('共%s个文件处理完毕, 成功转化%s个lua代码文件', file_counter, success_counter)
+    let return_msgs = {
+        message: return_msg, // 所有文件处理完成后的返回信息
+        file_list: exl_list, // 已处理的文件列表
+        error_messages: err_msgs // 数组，包含每个文件返回的err_str
+    }
+    console.log(return_msgs)
+    return return_msgs
 } 
 
-main()
+// transferToLua()
