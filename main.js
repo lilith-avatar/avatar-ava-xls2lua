@@ -7,6 +7,9 @@ const {
 const path = require('path');
 const fs = require('fs');
 const ipc = require('electron').ipcMain;
+const {
+    transferToLua
+} = require('./src/xls2lua')
 let win;
 let nameWin;
 let tmpConfigData;
@@ -74,9 +77,14 @@ ipc.on('closeNameWindow', () => {
 ipc.on('nameProject', (event, name) => {
     writeConfigJson(name, tmpConfigData)
     win.webContents.send('nameComplete')
+    transferToLua(tmpConfigData['input-folder'], tmpConfigData['output-folder'])
     nameWin.close()
 })
 
 ipc.on('sendTempData', (event, data) => {
     tmpConfigData = data
+})
+
+ipc.on('sendData', (event, data) => {
+    transferToLua(data['input-folder'], data['output-folder'])
 })
