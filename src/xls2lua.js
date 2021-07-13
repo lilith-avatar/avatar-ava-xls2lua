@@ -473,8 +473,7 @@ async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER
     // todo: move translate excel to last element
     for (let xls_file of exl_list) {
         if (xls_file == TRANSLATE_XLS) update_translate_xls(input_path +'/'+ xls_file)
-        // let {t, ret, err_str} = make_table(input_path +'/'+ xls_file) // input_path为相对路径时
-        let {t, ret, err_str} = make_table(input_path) // input_path为绝对路径
+        let {t, ret, err_str} = make_table(input_path +'/'+ xls_file) 
         file_counter += 1
         err_msgs.push(err_str)
         if (! ret == 0) {
@@ -490,7 +489,7 @@ async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER
         file_list: exl_list, // 已处理的文件列表
         error_messages: err_msgs // 数组，包含每个文件返回的err_str
     }
-    // console.log(return_msgs)
+    console.log(return_msgs)
     return return_msgs
 } 
 
