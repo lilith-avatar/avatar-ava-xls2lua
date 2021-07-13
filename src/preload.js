@@ -21,9 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const selector = document.getElementById("project-selector")
         const inputFolder = document.getElementById("root-folder-text")
         const outputFolder = document.getElementById("output-folder-text")
-        console.log(data);
         for (let key in data["projects"]) {
-            console.log(key);
             selector.innerHTML = selector.innerHTML + `<option value ='${key}'>${key}</option>`
         }
         selector.options[selectByValue(data["defaultChecked"])].selected = true;
@@ -48,8 +46,18 @@ contextBridge.exposeInMainWorld(
     'folderChange', {
         selectProject: (project) => {
             const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), 'utf8'))
-            document.getElementById('root-folder-text').setAttribute('value', data[project]['data']['input-folder'])
-            document.getElementById('output-folder-text').setAttribute('value', data[project]['data']['output-folder'])
+            document.getElementById('root-folder-text').setAttribute('value', data['projects'][project]['data']['input-folder'])
+            document.getElementById('output-folder-text').setAttribute('value', data['projects'][project]['data']['output-folder'])
         }
     }
 )
+
+ipcRenderer.on('nameComplete', () => {
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), 'utf8'))
+    const selector = document.getElementById("project-selector")
+    selector.innerHTML = ``
+    for (let key in data["projects"]) {
+        selector.innerHTML = selector.innerHTML + `<option value ='${key}'>${key}</option>`
+    }
+    selector.options[selectByValue(data["defaultChecked"])].selected = true;
+})

@@ -62,9 +62,9 @@ ipc.on('trans', () => {
     })
     nameWin.loadFile('./views/nameWindow.html')
     //! 开发者工具
-    // nameWin.webContents.openDevTools({
-    //     mode: 'right'
-    // })
+    nameWin.webContents.openDevTools({
+        mode: 'right'
+    })
 })
 
 ipc.on('closeNameWindow', () => {
@@ -73,6 +73,7 @@ ipc.on('closeNameWindow', () => {
 
 ipc.on('nameProject', (event, name) => {
     writeConfigJson(name, tmpConfigData)
+    win.webContents.send('nameComplete')
     nameWin.close()
 })
 
