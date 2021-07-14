@@ -352,7 +352,7 @@ function write_to_lua_script (workbook, output_path) {
             write_to_lua_key(sheet, [key1], type_dict, outfp, 1) 
         } else {
             outfp.end()
-            console.error('key missing')
+            return console.error('key missing')
         }
         outfp.write('}\r\n\r\nreturn ' + output_sheetname + suffix + '\r\n')
         outfp.end() // 关闭文件写入流
@@ -398,9 +398,8 @@ function write_to_lua_row (row, type_dict, outfp, depth) {
             outfp.write(indent+key+' = '+get_array(row[key],type_dict[key]))
         } else if ([VECTOR2, VECTOR3, EULER, COLOR].includes(type_dict[key])) {
             outfp.write(indent+key+' = '+get_obj_property(row[key],type_dict[key]))
-        } else {
-            outfp.end()
-            console.error('key '+key+' type '+type_dict[key]+' is wrong')
+        } else { 
+            return console.error('key '+key+' type '+type_dict[key]+' is wrong')
         }
         counter += 1 
         if (counter == length(row)) {
@@ -432,9 +431,8 @@ function write_to_lua_kv (data, keys, type_dict, outfp, depth) {
                 value = String(kv[index])
             } else console.error('kv excel format is wrong')
         }
-        if (!(key && value)) {
-            outfp.end()
-            console.error('kv excel format is wrong')
+        if (!(key && value)) { 
+            return console.error('kv excel format is wrong')
         }
         outfp.write(util.format(prefix, key))
         outfp.write(value)
@@ -455,7 +453,7 @@ function get_indent (depth) {
     return indent 
 }
 
-async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER) { 
+async function convertToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER) { 
     let exl_list = []
     let file_counter = 0
     let success_counter = 0
@@ -493,4 +491,5 @@ async function transferToLua (input_path=INPUT_FOLDER, output_path=OUTPUT_FOLDER
     return return_msgs
 } 
 
+module.exports = convertToLua
 // transferToLua()
