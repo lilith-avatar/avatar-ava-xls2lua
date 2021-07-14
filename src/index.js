@@ -20,8 +20,17 @@ $(document).ready(() => {
         document.getElementById('output-folder-text').setAttribute('value', folderPath)
     })
     $('#trans').on('click', () => {
+        if (!$("#root-folder-text").val() || !$("#output-folder-text").val()) {
+            // alert('还没有选择文件夹')
+            window.electron.showErrorBox('error', '还没有选择文件夹')
+            return
+        }
         if ($('#project-selector').val()) {
-            sendData()
+            document.getElementById('log-bar').innerHTML = ''
+            window.electron.sendData({
+                "input-folder": $('#root-folder-text').val(),
+                "output-folder": $('#output-folder-text').val()
+            })
         } else {
             window.electron.sendTempData({
                 "input-folder": $('#root-folder-text').val(),

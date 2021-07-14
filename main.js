@@ -2,13 +2,14 @@ const {
     app,
     BrowserWindow,
     Menu,
-    nativeTheme
+    nativeTheme,
+    dialog
 } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const ipc = require('electron').ipcMain;
 const {
-    transferToLua
+    convertToLua
 } = require('./src/xls2lua')
 let win;
 let nameWin;
@@ -74,10 +75,11 @@ ipc.on('closeNameWindow', () => {
     nameWin.close()
 })
 
-ipc.on('nameProject', (event, name) => {
+ipc.on('nameProject', async (event, name) => {
     writeConfigJson(name, tmpConfigData)
     win.webContents.send('nameComplete')
-    transferToLua(tmpConfigData['input-folder'], tmpConfigData['output-folder'])
+    let log = await convertToLua(tmpConfigData['input-folder'], tmpConfigData['output-folder'])
+    win.webContents.send('showLog', log.error_messages)
     nameWin.close()
 })
 
@@ -85,6 +87,11 @@ ipc.on('sendTempData', (event, data) => {
     tmpConfigData = data
 })
 
-ipc.on('sendData', (event, data) => {
-    transferToLua(data['input-folder'], data['output-folder'])
+ipc.on('sendData', async (event, data) => {
+    let log = await convertToLua(data['input-folder'], data['output-folder'])
+    win.webContents.send('showLog', log.error_messages)
+})
+
+ipc.on('showErrorBox', (event, title, content) => {
+    dialog.showErrorBox(title, content)
 })

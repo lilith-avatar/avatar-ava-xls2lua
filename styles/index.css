@@ -72,6 +72,7 @@ input + button {
   width: 95%;
   height: 350px;
   margin: 30px auto 10px;
+  overflow:auto;
   border-bottom: 1px solid #545d68;
 }
 

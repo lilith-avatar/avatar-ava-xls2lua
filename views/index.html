@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../styles/index.css">
     <title>ava-x2l</title>
 </head>
@@ -11,7 +12,7 @@
 <body>
     <script type="module" src="../src/jquery.js"></script>
     <script type="module" src="../src/index.js"></script>
-    <div class="log-container">
+    <div class="log-container" id="log-bar">
 
     </div>
     <!-- todo: 这里改成文件选择 -->
@@ -35,7 +36,7 @@
                 <span id="choose-folder">output folder</span>
             </li>
             <li>
-                <button id="trans">开始转换</button>
+                <button id="trans" class="btn btn-info">开始转换</button>
             </li>
         </ul>
     </div>
