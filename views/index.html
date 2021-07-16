@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../styles/index.css">
+    <title>ava-x2l</title>
+</head>
+<!-- todo: 可能用路由会更好？ -->
+<body>
+    <script type="module" src="../src/jquery.js"></script>
+    <script type="module" src="../src/index.js"></script>
+    <div class="log-container" id="log-bar">
+
+    </div>
+    <!-- todo: 这里改成文件选择 -->
+    <div class="config-bar">
+        <div class="project-list">
+            <select name="project-selector" id="project-selector">
+                <!-- <option value="ava" selected>ava</options> -->
+            </select>
+            <button id="clear" class="btn btn-warning clear-float">Clear Projects</button>
+        </div>
+        <ul class="clear-float file-selector-list">
+            <li>
+                <input type="file" id='root-folder' class="file-selector" webkitdirectory multiple>
+                <input type="text" name="" id="root-folder-text" readonly="readonly">
+                <button class="root-folder" >更改</button><br>
+                <span id="choose-folder">input folder</span>
+            </li>
+            <li>
+                <input type="file" id='output-folder' class="file-selector" webkitdirectory multiple>
+                <input type="text" name="" id="output-folder-text" readonly="readonly">
+                <button class="output-folder">更改</button><br>
+                <span id="choose-folder">output folder</span>
+            </li>
+            <li>
+                
+            </li>
+            <li>
+                <button id="trans" class="btn btn-info">Convert</button>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

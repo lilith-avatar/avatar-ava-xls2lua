@@ -13,4 +13,4 @@ App
 dist
 
 # bower
-bower_components
+.ava-x2l-config.json
