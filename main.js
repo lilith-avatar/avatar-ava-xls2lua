@@ -54,8 +54,8 @@ app.whenReady().then(() => {
 
 ipc.on('trans', () => {
     nameWin = new BrowserWindow({
-        width: 500,
-        height: 300,
+        width: 600,
+        height: 200,
         parent: win,
         modal: true,
         resizable: false,
@@ -66,9 +66,9 @@ ipc.on('trans', () => {
     })
     nameWin.loadFile('./views/nameWindow.html')
     //! 开发者工具
-    nameWin.webContents.openDevTools({
-        mode: 'right'
-    })
+    // nameWin.webContents.openDevTools({
+    //     mode: 'right'
+    // })
 })
 
 ipc.on('closeNameWindow', () => {

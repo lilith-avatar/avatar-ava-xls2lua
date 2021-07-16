@@ -3,6 +3,10 @@ $(document).ready(() => {
         window.electron.closeNameWindow()
     })
     $('#name-project').on('click', () => {
-        window.electron.nameProject($('#project-name').val())
+        if (!($('#project-name').val())) {
+            window.electron.showErrorBox('error', '还没有命名')
+        } else {
+            window.electron.nameProject($('#project-name').val())
+        }
     })
 })

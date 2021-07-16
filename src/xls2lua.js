@@ -126,7 +126,7 @@ function make_table(filename) {
         let sheet_name = sheet.replace(/ /g, '_')
         // 检查项：数据表表名应以output_或kv_为开头
         if (!(sheet_name.startsWith('output_') || sheet_name.startsWith('kv_'))) continue
-        console.log('Processing: ', filename, util.format('Sheet[%s]', sheet_name))
+        //console.log('Processing: ', filename, util.format('Sheet[%s]', sheet_name))
         var data = excel['data'][sheet_name] = {}
         var meta = excel['meta'][sheet_name] = {}
         let worksheet = workbook.Sheets[sheet]
@@ -324,7 +324,7 @@ function make_table(filename) {
     return {
         t: excel,
         ret: 0,
-        err_str: only_filename + ' processed successfully.'
+        err_str: '<span style="color:red">' + only_filename + ' processed successfully.</span>'
     }
 }
 
@@ -524,7 +524,7 @@ async function convertToLua(input_path = INPUT_FOLDER, output_path = OUTPUT_FOLD
     if (!fs.existsSync(output_path)) {
         fs.mkdir(output_path, (err) => {
             if (err) return console.error(err)
-            console.log('Output directory created successfully!');
+            //console.log('Output directory created successfully!');
         })
     }
     fs.readdirSync(input_path).forEach(file => {
@@ -553,7 +553,7 @@ async function convertToLua(input_path = INPUT_FOLDER, output_path = OUTPUT_FOLD
         file_list: exl_list, // 已处理的文件列表
         error_messages: err_msgs // 数组，包含每个文件返回的err_str
     }
-    console.log(return_msgs)
+    //console.log(return_msgs)
     return return_msgs
 }
 

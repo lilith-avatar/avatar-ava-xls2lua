@@ -28,7 +28,6 @@ window.addEventListener('DOMContentLoaded', () => {
         inputFolder.setAttribute('value', data["projects"][data["defaultChecked"]]['data']['input-folder'])
         outputFolder.setAttribute('value', data["projects"][data["defaultChecked"]]['data']['output-folder'])
     } catch (e) {
-        console.log(e);
         fs.writeFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), '{"projects":{},"defaultChecked":""}', 'utf8')
     }
 })
@@ -54,6 +53,21 @@ contextBridge.exposeInMainWorld(
     }
 )
 
+contextBridge.exposeInMainWorld(
+    'configChange', {
+        clearProjects: () => {
+            fs.writeFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), '{"projects":{},"defaultChecked":""}', 'utf8')
+            const selector = document.getElementById("project-selector")
+            const inputFolder = document.getElementById("root-folder-text")
+            const outputFolder = document.getElementById("output-folder-text")
+            selector.innerHTML = ``
+            inputFolder.setAttribute('value', '')
+            outputFolder.setAttribute('value', '')
+        }
+    }
+)
+
+
 ipcRenderer.on('nameComplete', () => {
     const data = JSON.parse(fs.readFileSync(path.join(__dirname, '..', '.ava-x2l-config.json'), 'utf8'))
     const selector = document.getElementById("project-selector")
@@ -68,7 +82,6 @@ ipcRenderer.on('showLog', (event, logs) => {
     // 先清除log栏中原本的内容
     document.getElementById('log-bar').innerHTML = ''
     logs.forEach(log => {
-        console.log(log);
         document.getElementById('log-bar').innerHTML = document.getElementById('log-bar').innerHTML + `<p>${log}</p>`
     });
 })

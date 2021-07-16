@@ -3,38 +3,9 @@
     cursor: default !important;
     -webkit-user-drag: none;
 }
+
 /* tag */
 body {
-    width:100%;
-    height:100%;
-    
-    background-color: rgba(0, 0, 0, 0);
-}
-
-div{
-    width:100%;
-}
-
-h2{
-    text-align: center;
-    margin-top: 10% !important;
-}
-
-/* id */
-#project-name{
-    display:flex;
-    flex-direction: column;
-    width:250px;
-    height:40px;
-    background-color:#F3F3F3;
-    border-color: #545d68 !important;
-    font-size: 25px;
-    text-align: center;
-    margin-top: 10px !important;
-    margin-left: auto;
-}
-
-.main{
     margin: 0;
     padding: 0;
     width: 100%;
@@ -42,29 +13,86 @@ h2{
     color: #e4e4e4 !important;
     font-family: "Microsoft Yahei", "微软雅黑", STXihei, "华文细黑", sans-serif;
     text-align: center;
-    background-color: #3d4a5c !important;
-    border-radius: 5px;
+    background-color: #22272e !important;
 }
 
-.btn-bar{
-    margin-top:20px;
-    margin-left:auto;
-    width:100%;
-    height:100px;
+input[type="text"] {
+    border: 1px solid #c0bdbd;
+    font-size: 15px;
+    border-radius: 3px;
+    height: 30px;
+    width: 300px;
+    padding: 0 0;
 }
 
-.btn-bar button{
-    width:100px;
-    height:50px;
-    margin-left:auto;
-    border-radius: 5px;
-    font-size: 20px;
+input[type="text"]:hover {
+    outline: none;
+    border-color: #00c3ff;
 }
 
+input[type="text"]:focus {
+    outline: none;
+    border-color: #00c3ff;
+}
 
+/* id */
+#project-name {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 40px;
+    background-color: #F3F3F3;
+    border-color: #545d68 !important;
+    font-size: 15px;
+    text-align: center;
+    margin-top: 0px !important;
+    margin-left: 60px;
+}
 
-.btn-bar button:last-child{
-    width:100px;
-    height:50px;
-    margin-left:20px;
+#name-project {
+    color: #f3f3f3;
+    font-size: 15px;
+    width: 150px;
+}
+
+.btn-bar {
+    margin-top: 20px;
+    margin-left: auto;
+    width: 100%;
+    height: 100px;
+    float: left;
+}
+
+.title {
+    text-align: center;
+    margin-top: 5% !important;
+}
+
+.title span {
+    font-size: 18px;
+    margin-left: -80px;
+    margin-top: 50px;
+}
+
+.close {
+    float: right;
+    background-image: '../resources/x.svg';
+    background-color: rgba(0, 0, 0, 0);
+    margin-right: 30px;
+    color: #F3F3F3;
+    border: 0px;
+    padding: 0px 0px 0px 0px;
+    transition-duration: 0.5s;
+}
+
+.close:hover {
+    background-color: rgba(66, 65, 65, 0.596);
+}
+
+.name-bar {
+    margin-top: 30px;
+}
+
+.name-bar input[type="text"] {
+    float: left;
 }

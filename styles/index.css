@@ -18,7 +18,7 @@ div {
 }
 
 ul {
-  margin-top: 5%;
+  margin-top: 8%;
   margin-left: 10px;
   list-style: none;
 }
@@ -32,21 +32,23 @@ li span {
 }
 
 select {
-  display: flex;
   flex-direction: column;
   width: 250px;
   height: 40px;
   background-color: #3f4855;
   color: #f3f3f3;
   font-size: 25px;
+  margin-right: 0px;
 }
 
 input[type="text"] {
   border: 1px solid #c0bdbd;
+  font-size: 15px;
   border-radius: 3px;
   height: 30px;
   width: 300px;
   padding: 0 0;
+  transition-duration: 0.5s;
 }
 
 input[type="text"]:hover {
@@ -62,6 +64,7 @@ input[type="text"]:focus {
 input + button {
   background-color: rgba(0, 0, 0, 0);
   color: #20c1f1;
+  font-size: 15px;
   border: 0px;
   padding: 0px 0px;
   margin-left: -40px;
@@ -72,7 +75,7 @@ input + button {
   width: 95%;
   height: 350px;
   margin: 30px auto 10px;
-  overflow:auto;
+  overflow: auto;
   border-bottom: 1px solid #545d68;
 }
 
@@ -107,5 +110,29 @@ input + button {
 }
 
 .file-selector-list {
-  margin-top: 20px;
+  margin-top: 40px;
+}
+
+.success {
+  color: #00ff73;
+}
+
+.fail {
+  color: #fc4a2a;
+}
+
+/* id */
+#trans {
+  margin-left: 100px;
+  color: #f3f3f3;
+  font-size: 15px;
+  width: 200px;
+}
+
+#clear{
+  margin-right: 250px;
+  color: #242424;
+  font-size: 15px;
+  float: right;
+  width: 150px;
 }

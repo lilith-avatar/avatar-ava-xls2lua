@@ -42,4 +42,7 @@ $(document).ready(() => {
     $('#project-selector').on('change', () => {
         window.folderChange.selectProject($('#project-selector').val())
     })
+    $('#clear').on('click', () => {
+        window.configChange.clearProjects()
+    })
 })
